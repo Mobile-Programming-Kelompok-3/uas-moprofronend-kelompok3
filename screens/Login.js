@@ -5,7 +5,7 @@ import Login from '../components/Login'
 function KeranjangScreen() {
     return (
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-        <Text>Login Akun</Text>
+        <Text>Login Akun disini ya</Text>
       </View>
     );
   }
