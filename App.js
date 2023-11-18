@@ -16,7 +16,7 @@ function App() {
         <Tab.Screen name="Keranjang" component={KeranjangScreen} />
         <Tab.Screen name="Home" component={Homescreen} />
         <Tab.Screen name="Profil" component={ProfilScreen} />
-        <Tab.Screen name="Riwayat Pesanan" component={RiwayatPesan} />
+        <Tab.Screen name="Riwayat" component={RiwayatPesan} />
       </Tab.Navigator>
     </NavigationContainer>
   );
