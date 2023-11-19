@@ -5,7 +5,7 @@ import Login from '../components/Login'
 function Login() {
     return (
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-        <Text>Login Akun disini ya</Text>
+        <Text>Loginin Akun disini ya, ini saya nyoba ya</Text> 
       </View>
     );
   }

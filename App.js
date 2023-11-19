@@ -5,6 +5,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import ProfilScreen from "./screens/ProfilScreen";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import KeranjangScreen from "./screens/KeranjangScreen";
+import RiwayatPesan from "./screens/RiwayatPesan";
 
 const Tab = createBottomTabNavigator();
 
@@ -15,6 +16,7 @@ function App() {
         <Tab.Screen name="Keranjang" component={KeranjangScreen} />
         <Tab.Screen name="Home" component={Homescreen} />
         <Tab.Screen name="Profil" component={ProfilScreen} />
+        <Tab.Screen name="Riwayat" component={RiwayatPesan} />
       </Tab.Navigator>
     </NavigationContainer>
   );
