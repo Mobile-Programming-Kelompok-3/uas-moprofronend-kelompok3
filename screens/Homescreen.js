@@ -6,7 +6,7 @@ import MenuCard from '../components/MenuCard'
 
 const Homescreen = () => {
   return (
-    <ScrollView>
+    <ScrollView showsVerticalScrollIndicator={false}>
       <Header/>
       <SearchBar/>
       <MenuCard/>
