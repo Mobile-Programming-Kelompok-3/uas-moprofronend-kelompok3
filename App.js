@@ -4,12 +4,16 @@ import ProfilScreen from "./screens/ProfilScreen";
 import KeranjangScreen from "./screens/KeranjangScreen";
 import RiwayatPesan from "./screens/RiwayatPesan";
 import ProductDetail from "./components/ProductDetail";
+import Navigation from "./components/Navigation";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
+const App = () => {
+  return <Navigation />;
+};
 
 function RiwayatStack() {
   return (
