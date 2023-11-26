@@ -3,15 +3,10 @@ import React from 'react';
 import { FlatList, View, Text, Image, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { MenuList, colors } from '../Constant';
-import ProductDetail from './ProductDetail';
 
 
 const MenuCard = () => {
   const navigation = useNavigation();
-
-  const handleProductClick = (item) => {
-    navigation.navigate('ProductDetail', { item });
-  };
 
   return (
     <View>
@@ -21,7 +16,7 @@ const MenuCard = () => {
       <FlatList
         data={MenuList}
         renderItem={({ item }) => (
-          <TouchableOpacity onPress={() => handleProductClick(item)}>
+          <TouchableOpacity onPress={() => navigation.navigate("Product Detail", { item })}>
             <View
               style={{
                 backgroundColor: colors.COLOR_LIGHT,
