@@ -1,6 +1,6 @@
 // ProductDetail.js
 import React, { useState } from 'react';
-import { View, Text, Image, TouchableOpacity } from 'react-native';
+import { View, Text, Image, TouchableOpacity, Button } from 'react-native';
 
 const ProductDetail = ({ route }) => {
   const { item } = route.params;
@@ -16,48 +16,48 @@ const ProductDetail = ({ route }) => {
     }
   };
 
+  const handleAddToCart = () => {
+    // Implement logic to add the product to the cart
+    // You can use a state management solution or send the data to an API, for example.
+    console.log(`Added ${quantity} ${item.name} to the cart`);
+  };
+
+  const handleOrderNow = () => {
+    // Implement logic to process the order
+    console.log(`Ordered ${quantity} ${item.name} now`);
+  };
+
   return (
-    <View>
+    <View style={{ padding: 16 }}>
       <Image
         source={item.image}
         style={{
           width: '100%',
-          height: 200,
+          height: 300,
           resizeMode: 'cover',
         }}
       />
-      <View style={{ padding: 16 }}>
-        <Text style={{ fontSize: 20, fontWeight: 'bold' }}>{item.name}</Text>
-        <Text style={{ fontSize: 16, marginTop: 8 }}>{item.description}</Text>
-        <Text style={{ fontSize: 18, marginTop: 16 }}>Price: {item.price}</Text>
+      <Text style={{ fontSize: 24, fontWeight: 'bold', marginVertical: 10 }}>
+        {item.name}
+      </Text>
+      <Text style={{ fontSize: 18, marginBottom: 10 }}>{item.price}</Text>
 
-        {/* Quantity */}
-        <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 16 }}>
-          <Text style={{ fontSize: 16, marginRight: 8 }}>Quantity:</Text>
-          <TouchableOpacity onPress={handleDecrement}>
-            <Text style={{ fontSize: 18, color: 'blue', marginRight: 8 }}>-</Text>
-          </TouchableOpacity>
-          <Text style={{ fontSize: 18 }}>{quantity}</Text>
-          <TouchableOpacity onPress={handleIncrement}>
-            <Text style={{ fontSize: 18, color: 'blue', marginLeft: 8 }}>+</Text>
-          </TouchableOpacity>
-        </View>
-
-        {/* Add to Cart Button */}
-        <TouchableOpacity
-          style={{
-            backgroundColor: 'green',
-            padding: 12,
-            borderRadius: 8,
-            alignItems: 'center',
-            marginTop: 16,
-          }}
-          onPress={() => {
-            // Implement logic to add the product to the cart or perform other actions
-            console.log(`Added ${quantity} ${item.name} to the cart.`);
-          }}>
-          <Text style={{ color: 'white', fontSize: 16 }}>Add to Cart</Text>
+      <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 20 }}>
+        <TouchableOpacity onPress={handleDecrement} style={{ padding: 10, backgroundColor: 'lightgray', borderRadius: 5 }}>
+          <Text>-</Text>
         </TouchableOpacity>
+        <Text style={{ fontSize: 20, marginHorizontal: 10 }}>{quantity}</Text>
+        <TouchableOpacity onPress={handleIncrement} style={{ padding: 10, backgroundColor: 'lightgray', borderRadius: 5 }}>
+          <Text>+</Text>
+        </TouchableOpacity>
+      </View>
+
+      <Text style={{ fontSize: 16, marginBottom: 10, fontWeight: 'bold' }}>Tentang Produk</Text>
+      <Text style={{ fontSize: 14, marginBottom: 20 }}>{item.description}</Text>
+
+      <View style={{ flexDirection: 'row' }}>
+        <Button title="Keranjang" onPress={handleAddToCart} />
+        <Button title="Pesan Sekarang" onPress={handleOrderNow} />
       </View>
     </View>
   );
