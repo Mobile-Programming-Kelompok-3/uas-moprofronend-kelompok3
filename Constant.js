@@ -214,10 +214,10 @@ export const MenuList = [
     },
     {
         id: "25",
-        name: "Gery Snack Sereal",
-        price: "Rp.10.200",
-        image: require('./assets/Gerry.jpg'),
-        description: "Gery Snack Sereal Cokelat 100 g merupakan camilan jenis biskuit dengan isian krim varian rasa cokelat persembahan dari GarudaFood dengan rasa cokelat yang enak. Terbuat dari cokelat dan bahan-bahan pilihan terbaik sehingga menghasilkan camilan biskuit sereal cokelat yang memiliki rasa manis dan mengandung serat alami yang baik untuk tubuh. Hadir dalam kemasan siap makan seberat 100 gram, membuat Gery snack sereal cokelat enak jika dimakan langsung sebagai snack atau dapat juga dicampurkan dengan susu untuk sereal sarapan lezat. Cokelat dan serat yang terkandung di dalam mampu memberikan energi dan asupan serat harian yang bisa membuat kamu bersemangat seharian. Nikmatilah kelezatan sereal sekaligus snack biskuit bersama manisnya cokelat dari Gery Snack Sereal 100 g.",
+        name: "Sprite",
+        price: "Rp.4.800",
+        image: require('./assets/Sprite.jpg'),
+        description: "Sprite Waterlymon Minuman Soda Lemon Lime 425 ml merupakan minuman ringan berkarbonat yang ditambah lemon lime. Hadir dengan kemasan botol baru 425 ml. Sprite menawarkan kesegaran yang baru dengan meluncurkan produk minuman bersoda baru yaitu Sprite Waterlymon dengan rasa lemon lime yang menyegarkan dan memberikan energi untuk menjalani berbagai aktivitas. Kesegaran dari Sprite Waterlymon membuat kamu dan teman-temanmu dapat menjalani aktivitas seharian dengan seru dan menyegarkan. Rasa lemon limenya yang dingin menyejukkan akan menjadikan hari-harimu lebih segar dan sejuk. Nikmati kesegaran Sprite Waterlymon yang maksimal dengan meminumnya ketika dingin. Buat banyak hal seru bersama teman-temanmu dengan Sprite dan jalani hari dengan seru.",
         
     },
     {
@@ -240,7 +240,7 @@ export const MenuList = [
         id: "28",
         name: "Frisian Flag Coklat",
         price: "Rp.20.500",
-        image: require('./assets/Gerry.jpg'),
+        image: require('./assets/FF.jpg'),
         description: "FRISIAN FLAG Purefarm Susu UHT Cokelat 946 ml adalah susu segar dalam kemasan dengan varian rasa cokelat. Susu berasal dari sapi peternakan yang dirawat secara baik dan menghasilkan susu segar berkualitas. Susu diolah secara modern menggunakan teknologi modern dari belanda, dengan melalui proses UHT. Susu mengandung nutrisi makro seperi protein, karbohidart, dan lemak serta nutrisi mikro berupa kalsium, mineral, dan multivitamin. Susu memiliki tekstur yang kental, dengan sensasi rasa cokelat yang lezat. Susu dikemas dalam kemasan tetrapak dalam ukuran 946 ml yang ang dilengkapi dengan inovasi combiblock lid pada bagian tutup. Cocok diminum pada pagi hari atau untuk mengganjal lapar. Segera beli dan miliki FRISIAN FLAG Purefarm Susu UHT Cokelat 946 ml sebagai minuman sehat anda.",
         
     },
