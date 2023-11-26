@@ -4,7 +4,6 @@ import { FlatList, View, Text, Image, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { MenuList, colors } from '../Constant';
 
-
 const MenuCard = () => {
   const navigation = useNavigation();
 
@@ -28,6 +27,7 @@ const MenuCard = () => {
                 marginVertical: 16,
                 paddingHorizontal: 8,
                 paddingVertical: 20,
+                position: 'relative', // added to make positioning absolute work
               }}>
               <Image
                 source={item.image}
@@ -42,6 +42,21 @@ const MenuCard = () => {
               />
               <Text style={{ paddingLeft: 10 }}>{item.name}</Text>
               <Text style={{ paddingLeft: 10 }}>{item.price}</Text>
+              {/* Add the small shopping cart button */}
+              <TouchableOpacity
+                onPress={() => {  navigation.navigate("Keranjang");
+                }}
+                style={{
+                  position: 'absolute',
+                  bottom: 5,
+                  right: 5,
+                  backgroundColor: 'lightgray',
+                  borderRadius: 10,
+                  padding: 5,
+                }}
+              >
+                <Text>🛒</Text>
+              </TouchableOpacity>
             </View>
           </TouchableOpacity>
         )}
@@ -56,4 +71,4 @@ const MenuCard = () => {
   );
 };
 
-export default MenuCard;
+export default MenuCard;
