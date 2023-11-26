@@ -1,8 +1,8 @@
 // ProductDetail.js
 import React, { useState } from 'react';
-import { View, Text, Image, TouchableOpacity, Button } from 'react-native';
+import { View, Text, Image, TouchableOpacity, Button, ScrollView } from 'react-native';
 
-const ProductDetail = ({ route }) => {
+const ProductDetail = ({ route, navigation }) => {
   const { item } = route.params;
   const [quantity, setQuantity] = useState(1);
 
@@ -28,38 +28,40 @@ const ProductDetail = ({ route }) => {
   };
 
   return (
-    <View style={{ padding: 16 }}>
-      <Image
-        source={item.image}
-        style={{
-          width: '100%',
-          height: 300,
-          resizeMode: 'cover',
-        }}
-      />
-      <Text style={{ fontSize: 24, fontWeight: 'bold', marginVertical: 10 }}>
-        {item.name}
-      </Text>
-      <Text style={{ fontSize: 18, marginBottom: 10 }}>{item.price}</Text>
+    <ScrollView style={{ flex: 1 }}>
+      <View style={{ padding: 16 }}>
+        <Image
+          source={item.image}
+          style={{
+            width: '100%',
+            height: 300,
+            resizeMode: 'cover',
+          }}
+        />
+        <Text style={{ fontSize: 24, fontWeight: 'bold', marginVertical: 10 }}>
+          {item.name}
+        </Text>
+        <Text style={{ fontSize: 18, marginBottom: 10 }}>{item.price}</Text>
 
-      <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 20 }}>
-        <TouchableOpacity onPress={handleDecrement} style={{ padding: 10, backgroundColor: 'lightgray', borderRadius: 5 }}>
-          <Text>-</Text>
-        </TouchableOpacity>
-        <Text style={{ fontSize: 20, marginHorizontal: 10 }}>{quantity}</Text>
-        <TouchableOpacity onPress={handleIncrement} style={{ padding: 10, backgroundColor: 'lightgray', borderRadius: 5 }}>
-          <Text>+</Text>
-        </TouchableOpacity>
+        <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 20 }}>
+          <TouchableOpacity onPress={handleDecrement} style={{ padding: 10, backgroundColor: 'lightgray', borderRadius: 5 }}>
+            <Text>-</Text>
+          </TouchableOpacity>
+          <Text style={{ fontSize: 20, marginHorizontal: 10 }}>{quantity}</Text>
+          <TouchableOpacity onPress={handleIncrement} style={{ padding: 10, backgroundColor: 'lightgray', borderRadius: 5 }}>
+            <Text>+</Text>
+          </TouchableOpacity>
+        </View>
+
+        <Text style={{ fontSize: 16, marginBottom: 10, fontWeight: 'bold' }}>Tentang Produk</Text>
+        <Text style={{ fontSize: 14, marginBottom: 20 }}>{item.description}</Text>
+
+        <View style={{ flexDirection: 'row' }}>
+          <Button title="Keranjang" onPress={() => navigation.navigate("Keranjang")} />
+          <Button title="Pesan Sekarang" onPress={handleOrderNow} />
+        </View>
       </View>
-
-      <Text style={{ fontSize: 16, marginBottom: 10, fontWeight: 'bold' }}>Tentang Produk</Text>
-      <Text style={{ fontSize: 14, marginBottom: 20 }}>{item.description}</Text>
-
-      <View style={{ flexDirection: 'row' }}>
-        <Button title="Keranjang" onPress={() => navigation.navigate("Keranjang")} />
-        <Button title="Pesan Sekarang" onPress={handleOrderNow} />
-      </View>
-    </View>
+    </ScrollView>
   );
 };
 
