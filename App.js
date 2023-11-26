@@ -5,8 +5,8 @@ import KeranjangScreen from "./screens/KeranjangScreen";
 import RiwayatPesan from "./screens/RiwayatPesan";
 import ProductDetail from "./components/ProductDetail";
 import { NavigationContainer } from "@react-navigation/native";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();

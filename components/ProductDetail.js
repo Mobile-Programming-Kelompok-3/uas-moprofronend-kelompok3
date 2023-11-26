@@ -56,7 +56,7 @@ const ProductDetail = ({ route }) => {
       <Text style={{ fontSize: 14, marginBottom: 20 }}>{item.description}</Text>
 
       <View style={{ flexDirection: 'row' }}>
-        <Button title="Keranjang" onPress={handleAddToCart} />
+        <Button title="Keranjang" onPress={() => navigation.navigate("Keranjang")} />
         <Button title="Pesan Sekarang" onPress={handleOrderNow} />
       </View>
     </View>
