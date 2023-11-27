@@ -8,6 +8,7 @@ import Navigation from "./components/Navigation";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import StatusPembayaran from "./screens/StatusPembayaran";
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -17,7 +18,7 @@ function RiwayatStack() {
     <Stack.Navigator >
       <Stack.Screen name="Profil" component={ProfilScreen} />
       <Stack.Screen name="Riwayat Transaksi" component={RiwayatPesan} />
-      
+      <Stack.Screen name="Status Pembayaran" component={StatusPembayaran} />
     </Stack.Navigator>
   );
 }
