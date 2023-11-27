@@ -1,4 +1,4 @@
-import {FlatList, StyleSheet, Text, View, Image} from 'react-native';
+import {FlatList, StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
 import React from 'react';
 import {KeranjangList, MenuList, colors} from '../Constant';
 
@@ -24,23 +24,38 @@ const KeranCard = () => {
               <Image
                 source={item.image}
                 style={{
-                  borderTopRightRadius: 10,
-                  borderTopLeftRadius: 10,
-                  width: 60,
+                  borderRadius: 10,
+                  width: 80,
                   height: 80,
                   margin: 3,
                   resizeMode: 'cover',
                 }}
               />
-              <Text style={{paddingLeft: 10}}>{item.name}</Text>
-              <Text style={{paddingLeft: 10}}>{item.price}</Text>
+              <Text
+                style={{
+                  paddingLeft: 20,
+                  marginBottom :10,
+                  flexDirection: "row",
+                  fontFamily :'Poppins',
+                }}>{item.name}
+                <br></br>
+                <Text style={{color: '#528BF9'}}>{item.price}</Text>
+                <br></br>
+                <View style={styles.wrapperCardBottom}>
+                  <TouchableOpacity style={styles.button}>
+                  <Text style={{fontWeight: '300'}}>-</Text>
+                </TouchableOpacity>
+                <Text style={{paddingHorizontal: 12}}>3</Text>
+                  <TouchableOpacity style={styles.button}>
+                  <Text style={styles.iconPlus}>+</Text>
+                 </TouchableOpacity>
+                </View>
+                </Text>
+                <TouchableOpacity style={styles.buttonexit}>
+                  <Text style={{fontWeight: '300'}}>x</Text>
+                </TouchableOpacity>
             </View>
           )}
-        //   numColumns={2}
-        //   columnWrapperStyle={{
-        //       justifyContent: "space-between",
-        //       paddingHorizontal: 10,
-        //   }}
           showsVerticalScrollIndicator={false}
         />
       </View>
@@ -48,3 +63,46 @@ const KeranCard = () => {
   };
   
   export default KeranCard;
+
+  const styles = StyleSheet.create({
+    container: {
+      flexDirection: 'row',
+      marginBottom: 20,
+    },
+    wrapperImageCheck: {
+      flexDirection: 'row',
+      alignItems: 'center',
+    },
+    productImage: {
+      width: 80,
+      height: 80,
+      marginHorizontal: 10,
+    },
+    button: {
+      borderRadius: 15,
+      width: 25,
+      height: 25,
+      alignItems: 'center',
+      justifyContent: 'center',
+      backgroundColor : '#F4F4F4',
+    },
+    buttonexit: {
+      borderWidth : 0.5,
+      borderRadius: 15,
+      width: 15,
+      height: 15,
+      alignItems: 'center',
+      justifyContent: 'center',
+      backgroundColor : '#F4F4F4',
+      marginLeft: 110,
+    },
+    iconPlus: {
+      color: 'black',
+      fontWeight: '600',
+    },
+    wrapperCardBottom: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      paddingTop : 10,
+    },
+  });
