@@ -1,8 +1,25 @@
 import React, { useState } from 'react';
-import { Button, View, Text, FlatList, TouchableOpacity, StatusBar, Image } from 'react-native';
+import { Button, View, Text, FlatList, TouchableOpacity, StatusBar, Image, StyleSheet } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
+import HeaderPage from "../components/HeaderPage";
 
-function RiwayatPesan() {
+function RiwayatPesan({ navigation }) {
+
+  React.useLayoutEffect(() => {
+    navigation.setOptions({
+      headerLeft: () => (
+        <TouchableOpacity
+          style={{ marginLeft: 10 }}
+          onPress={() => navigation.goBack()}
+        >
+          <Icon name="chevron-back" size={25} color="white" />
+        </TouchableOpacity>
+      ),
+      header: () => <HeaderPage title="Riwayat Transaksi" />,
+    });
+  }, [navigation]);
+
+
   const [kategori, setKategori] = useState(
     [
       {
@@ -91,5 +108,15 @@ function RiwayatPesan() {
       </View>
     );
 }
+
+const styles = StyleSheet.create({
+  backButton: {
+    marginLeft: 10,
+    color: 'white',
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
+  // ... tambahkan gaya lain yang diperlukan di sini
+});
 
 export default RiwayatPesan;
