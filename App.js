@@ -3,6 +3,11 @@ import Homescreen from "./screens/Homescreen";
 import ProfilScreen from "./screens/ProfilScreen";
 import KeranjangScreen from "./screens/KeranjangScreen";
 import RiwayatPesan from "./screens/RiwayatPesan";
+import ProductDetail from "./components/ProductDetail";
+import Navigation from "./components/Navigation";
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -30,9 +35,8 @@ function App() {
     <NavigationContainer>
       <Tab.Navigator screenOptions={{ headerShown: false }}>
         <Tab.Screen name="Keranjang" component={KeranjangScreen} />
-        <Tab.Screen name="Home" component={Homescreen} />
-        <Tab.Screen name="Profil" component={ProfilScreen} />
-        <Tab.Screen name="Riwayat" component={RiwayatPesan} />
+        <Tab.Screen name="Home" component={MenuStack} />
+        <Tab.Screen name="Profil" component={RiwayatStack} />
       </Tab.Navigator>
     </NavigationContainer>
   );
