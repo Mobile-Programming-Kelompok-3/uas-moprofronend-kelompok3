@@ -11,9 +11,6 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
-const App = () => {
-  return <Navigation />;
-};
 
 function RiwayatStack() {
   return (
