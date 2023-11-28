@@ -72,12 +72,12 @@ function AboutStoreScreen() {
           </View>
           {showFAQ && (
             <>
-              <Text>1. Apa itu Aplikasi Belanja Kilat?</Text>
-              <Text>Belanja Kilat adalah aplikasi belanja online yang menyediakan pengalaman belanja yang cepat, mudah, dan menyenangkan. Dengan aplikasi ini, Anda dapat menemukan, memilih, dan membeli berbagai produk dengan efisiensi tinggi.</Text>
-              <Text>2. Bagaimana Cara Saya Memesan Produk?</Text>
-              <Text>Pilih produk yang Anda inginkan, tambahkan ke keranjang belanja, dan ikuti langkah-langkah pembayaran. Proses pemesanan ini dirancang untuk memudahkan Anda dalam mendapatkan produk dengan cepat.</Text>
-              <Text>3. Apa Keuntungan Belanja di Aplikasi Belanja Kilat?</Text>
-              <Text>Keuntungan termasuk pencarian cepat, promosi dan diskon eksklusif, pembayaran aman dan mudah, notifikasi real-time, serta dukungan pelanggan yang responsif.</Text>
+              <Text style={styles.description}>1. Apa itu Aplikasi Belanja Kilat?</Text>
+              <Text style={styles.description}>Belanja Kilat adalah aplikasi belanja online yang menyediakan pengalaman belanja yang cepat, mudah, dan menyenangkan. Dengan aplikasi ini, Anda dapat menemukan, memilih, dan membeli berbagai produk dengan efisiensi tinggi.</Text>
+              <Text style={styles.description}>2. Bagaimana Cara Saya Memesan Produk?</Text>
+              <Text style={styles.description}>Pilih produk yang Anda inginkan, tambahkan ke keranjang belanja, dan ikuti langkah-langkah pembayaran. Proses pemesanan ini dirancang untuk memudahkan Anda dalam mendapatkan produk dengan cepat.</Text>
+              <Text style={styles.description}>3. Apa Keuntungan Belanja di Aplikasi Belanja Kilat?</Text>
+              <Text style={styles.description}>Keuntungan termasuk pencarian cepat, promosi dan diskon eksklusif, pembayaran aman dan mudah, notifikasi real-time, serta dukungan pelanggan yang responsif.</Text>
               {/* Tambahkan FAQ lainnya sesuai kebutuhan */}
             </>
           )}
@@ -95,9 +95,9 @@ function AboutStoreScreen() {
           </View>
           {showSchedule && (
             <>
-              <Text>Senin - Jumat: 09.00 - 18.00</Text>
-              <Text>Sabtu: 10.00 - 16.00</Text>
-              <Text>Minggu: Libur</Text>
+              <Text style={styles.description}>Senin - Jumat: 09.00 - 18.00</Text>
+              <Text style={styles.description}>Sabtu: 10.00 - 16.00</Text>
+              <Text style={styles.description}>Minggu: Libur</Text>
               {/* Tambahkan jadwal lainnya sesuai kebutuhan */}
             </>
           )}
@@ -107,8 +107,8 @@ function AboutStoreScreen() {
       {/* Alamat Toko */}
       <View style={styles.section}>
         <Text style={styles.sectionTitle}>Alamat Toko</Text>
-        <Text>Jalan Toko No. 123</Text>
-        <Text>Kota Anda, 12345</Text>
+        <Text style={styles.description}>Jl. Dr. Setiabudi No.229 </Text>
+        <Text style={styles.description}>Kota Bandung, 40154</Text>
         {/* Tambahkan informasi alamat lainnya sesuai kebutuhan */}
       </View>
 
@@ -142,16 +142,17 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   sectionTitle: {
-    fontFamily: 'Poppins',
+    fontFamily: 'Poppins-Bold', // Use Poppins-Bold for bold
     fontSize: 20,
     fontWeight: '700',
     marginBottom: 10,
   },
   description: {
-    fontFamily: 'Poppins',
+    fontFamily: 'Poppins-Regular', // Use Poppins-Regular for regular text
     fontSize: 16,
     lineHeight: 24,
     color: '#555555',
+    textAlign: 'justify',
   },
   showMore: {
     flexDirection: 'row',
@@ -165,10 +166,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   footerButtonText: {
+    fontFamily: 'Poppins-Bold', // Use Poppins-Bold for bold
     color: 'white',
     fontSize: 16,
     fontWeight: 'bold',
   },
 });
+
 
 export default AboutStoreScreen;
