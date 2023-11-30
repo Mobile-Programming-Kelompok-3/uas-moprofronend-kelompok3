@@ -56,10 +56,11 @@ const ProductDetail = ({ route, navigation }) => {
         <Text style={{ fontFamily: 'Poppins-Regular', fontSize: 16, marginBottom: 10, fontWeight: 'bold' }}>Tentang Produk</Text>
         <Text style={{ fontFamily: 'Poppins-Regular', fontSize: 14, marginBottom: 20, textAlign: 'justify'}}>{item.description}</Text>
 
-        <View style={{ flexDirection: 'row' }}>
-          <Button title="Keranjang" onPress={() => navigation.navigate("Keranjang")} />
-          <Button title="Pesan Sekarang" onPress={handleOrderNow} />
-        </View>
+        <View style={{ flexDirection: 'row', justifyContent: 'center', backgroundColor: '#528BF9', paddingVertical: 8 }}>
+  <Button title="Keranjang" onPress={() => navigation.navigate("Keranjang")} />
+  <Button title="Pesan Sekarang" onPress={() => navigation.navigate("Keranjang")} />
+</View>
+
       </View>
     </ScrollView>
   );
