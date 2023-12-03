@@ -1,19 +1,44 @@
-// MenuCard.js
-import React from 'react';
-import { FlatList, View, Text, Image, TouchableOpacity } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { FlatList, View, Text, Image, TouchableOpacity, TextInput } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { MenuList, colors } from '../Constant';
 
 const MenuCard = () => {
   const navigation = useNavigation();
+  const [searchQuery, setSearchQuery] = useState('');
+  const [filteredMenu, setFilteredMenu] = useState(MenuList);
+
+  useEffect(() => {
+    // Filter the menu items based on the search query
+    const filteredItems = MenuList.filter(item =>
+      item.name.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+    setFilteredMenu(filteredItems);
+  }, [searchQuery]);
 
   return (
     <View>
+      {/* Search Bar */}
+      <TextInput
+        style={{
+          height: 40,
+          borderColor: 'gray',
+          borderWidth: 1,
+          borderRadius: 8,
+          margin: 10,
+          paddingLeft: 10,
+          fontFamily: 'Poppins',
+        }}
+        placeholder="Search..."
+        onChangeText={text => setSearchQuery(text)}
+        value={searchQuery}
+      />
+
       <Text style={{ fontFamily: 'Poppins', marginLeft: 25, marginTop: 10, fontWeight: 'semi-bold' }}>
         Product Of View
       </Text>
       <FlatList
-        data={MenuList}
+        data={filteredMenu}
         renderItem={({ item }) => (
           <TouchableOpacity onPress={() => navigation.navigate("Product Detail", { item })}>
             <View
