@@ -95,7 +95,7 @@ function ProfileScreen({ navigation }) {
       </TouchableOpacity>
       <TouchableOpacity
         style={styles.cardButton}
-        onPress={() => navigation.navigate("OtherPage")}
+        onPress={() => navigation.navigate("Tentang Toko")}
       >
         <Text style={styles.buttonText}>Tentang Toko</Text>
         <svg

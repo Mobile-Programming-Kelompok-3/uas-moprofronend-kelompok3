@@ -38,31 +38,33 @@ const ProductDetail = ({ route, navigation }) => {
             resizeMode: 'cover',
           }}
         />
-        <Text style={{ fontSize: 24, fontWeight: 'bold', marginVertical: 10 }}>
+        <Text style={{ fontFamily: 'Poppins-Regular', fontSize: 24, fontWeight: 'bold', marginVertical: 10 }}>
           {item.name}
         </Text>
-        <Text style={{ fontSize: 18, marginBottom: 10 }}>{item.price}</Text>
+        <Text style={{ fontFamily: 'Poppins-Regular', fontSize: 18, marginBottom: 10 }}>{item.price}</Text>
 
         <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 20 }}>
           <TouchableOpacity onPress={handleDecrement} style={{ padding: 10, backgroundColor: 'lightgray', borderRadius: 5 }}>
             <Text>-</Text>
           </TouchableOpacity>
-          <Text style={{ fontSize: 20, marginHorizontal: 10 }}>{quantity}</Text>
+          <Text style={{ fontFamily: 'Poppins-Regular', fontSize: 20, marginHorizontal: 10 }}>{quantity}</Text>
           <TouchableOpacity onPress={handleIncrement} style={{ padding: 10, backgroundColor: 'lightgray', borderRadius: 5 }}>
             <Text>+</Text>
           </TouchableOpacity>
         </View>
 
-        <Text style={{ fontSize: 16, marginBottom: 10, fontWeight: 'bold' }}>Tentang Produk</Text>
-        <Text style={{ fontSize: 14, marginBottom: 20, textAlign: 'justify'}}>{item.description}</Text>
+        <Text style={{ fontFamily: 'Poppins-Regular', fontSize: 16, marginBottom: 10, fontWeight: 'bold' }}>Tentang Produk</Text>
+        <Text style={{ fontFamily: 'Poppins-Regular', fontSize: 14, marginBottom: 20, textAlign: 'justify'}}>{item.description}</Text>
 
-        <View style={{ flexDirection: 'row' }}>
-          <Button title="Keranjang" onPress={() => navigation.navigate("Keranjang")} />
-          <Button title="Pesan Sekarang" onPress={handleOrderNow} />
-        </View>
+        <View style={{ flexDirection: 'row', justifyContent: 'center', backgroundColor: '#528BF9', paddingVertical: 8 }}>
+  <Button title="Keranjang" onPress={() => navigation.navigate("Keranjang")} />
+  <Button title="Pesan Sekarang" onPress={() => navigation.navigate("Keranjang")} />
+</View>
+
       </View>
     </ScrollView>
   );
 };
+
 
 export default ProductDetail;
