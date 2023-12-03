@@ -7,7 +7,6 @@ import ProductDetail from "./components/ProductDetail";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import LoginPage from "./screens/Login";
 import Login from "./screens/Login";
 
 const Tab = createBottomTabNavigator();

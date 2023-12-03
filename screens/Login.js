@@ -72,6 +72,10 @@ const Login = () => {
       <TouchableOpacity style={styles.button} onPress={handleLogin}>
         <Text style={styles.buttonText}>Login</Text>
       </TouchableOpacity>
+      <Button
+        title="Don't have an account? Register here"
+        onPress={() => navigation.navigate('Register')}
+      />
     </View>
   );
 };
