@@ -10,6 +10,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import StatusPembayaran from "./screens/StatusPembayaran";
 import AboutStoreScreen from "./screens/AboutStoreScreen";
+import EditProfileScreen from "./screens/EditProfileScreen";
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -21,6 +22,7 @@ function RiwayatStack() {
       <Stack.Screen name="Riwayat Transaksi" component={RiwayatPesan} />
       <Stack.Screen name="Status Pembayaran" component={StatusPembayaran} />
       <Stack.Screen name="Tentang Toko" component={AboutStoreScreen} />
+      <Stack.Screen name="Edit Profile" component={EditProfileScreen} />
     </Stack.Navigator>
   );
 }
