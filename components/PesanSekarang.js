@@ -13,7 +13,7 @@ const PesanSekarang = ({ route }) => {
     // Implement logic to process the payment
     console.log(`Paid for ${quantity} ${item.name} - Total: ${totalPayment}`);
   };
-
+console.log(item.price);
   return (
     <ScrollView style={{ flex: 1 }}>
       <View style={styles.container}>
