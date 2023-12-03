@@ -14,14 +14,6 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 
-function LoginStack() {
-  return(
-    <Stack.Navigator>
-      <Stack.Screen name="Login" component={LoginScreen}/>
-    </Stack.Navigator>
-  )
-}
-
 function RiwayatStack() {
   return (
     <Stack.Navigator >
@@ -46,6 +38,7 @@ function App() {
   return (
     <NavigationContainer>
       <Tab.Navigator screenOptions={{ headerShown: false }}>
+        <Tab.Screen name="Login" component={Login}/>
         <Tab.Screen name="Keranjang" component={KeranjangScreen} />
         <Tab.Screen name="Home" component={MenuStack} />
         <Tab.Screen name="Profil" component={RiwayatStack} />
