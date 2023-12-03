@@ -11,6 +11,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import StatusPembayaran from "./screens/StatusPembayaran";
 import AboutStoreScreen from "./screens/AboutStoreScreen";
 import EditProfileScreen from "./screens/EditProfileScreen";
+import PesanSekarang from "./components/PesanSekarang";
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -32,6 +33,7 @@ function MenuStack() {
     <Stack.Navigator >
       <Stack.Screen name="Menu" component={Homescreen} />
       <Stack.Screen name="Product Detail" component={ProductDetail} />
+      <Stack.Screen name="Pesan Sekarang" component={PesanSekarang} />
       </Stack.Navigator >
   );
 }

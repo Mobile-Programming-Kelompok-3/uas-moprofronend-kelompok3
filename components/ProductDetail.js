@@ -58,7 +58,7 @@ const ProductDetail = ({ route, navigation }) => {
 
         <View style={{ flexDirection: 'row', justifyContent: 'center', backgroundColor: '#528BF9', paddingVertical: 8 }}>
   <Button title="Keranjang" onPress={() => navigation.navigate("Keranjang")} />
-  <Button title="Pesan Sekarang" onPress={() => navigation.navigate("Keranjang")} />
+  <Button title="Pesan Sekarang" onPress={() => navigation.navigate("Pesan Sekarang")} />
 </View>
 
       </View>
