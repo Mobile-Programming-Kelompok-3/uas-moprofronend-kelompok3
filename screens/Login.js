@@ -2,24 +2,27 @@ import React, { useState } from 'react';
 import { Image, View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
 
 const Login = () => {
-  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   const handleLogin = () => {
-    console.log('Username:', username);
+    console.log('Email:', email);
     console.log('Password:', password);
   };
 
   return (
-    <View style={styles.container}>
-      <Text style={{fontFamily: 'Poppins', marginLeft: 25, marginTop: 10, fontWeight: 'bold'}}>BeKi</Text>
-      <TextInput
-        style={styles.input}
-        placeholder="Username"
-        onChangeText={(text) => setUsername(text)}
+    <View style={[styles.container, { backgroundColor: '#528BF9' }]}>
+      <Image
+        source={require('../assets/BeKi.png')} 
+        style={styles.logo}
       />
       <TextInput
-        style={styles.input}
+        style={[styles.input, { borderRadius: 10 }]}
+        placeholder="Email"
+        onChangeText={(text) => setEmail(text)}
+      />
+      <TextInput
+        style={[styles.input, { borderRadius: 10 }]}
         placeholder="Password"
         secureTextEntry
         onChangeText={(text) => setPassword(text)}
@@ -37,6 +40,11 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     padding: 16,
+  },
+  logo: {
+    width: 120,
+    height: 160, 
+    marginBottom: 16,
   },
   title: {
     fontSize: 24,
