@@ -1,17 +1,3 @@
-<<<<<<< HEAD
-import { StyleSheet, Text, View } from "react-native";
-import Homescreen from "./screens/Homescreen";
-import ProfilScreen from "./screens/ProfilScreen";
-import KeranjangScreen from "./screens/KeranjangScreen";
-import RiwayatPesan from "./screens/RiwayatPesan";
-import ProductDetail from "./components/ProductDetail";
-import Login from "./screens/Login";
-import StatusPembayaran from "./screens/StatusPembayaran";
-import AboutStoreScreen from "./screens/AboutStoreScreen";
-import { NavigationContainer } from "@react-navigation/native";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-=======
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
@@ -49,6 +35,7 @@ function RiwayatStack() {
       <Stack.Screen name="Riwayat Transaksi" component={RiwayatPesan} />
       <Stack.Screen name="Status Pembayaran" component={StatusPembayaranStack} />
       <Stack.Screen name="Tentang Toko" component={AboutStoreScreen} />
+      <Stack.Screen name="Edit Profile" component={EditProfileScreen} />
     </Stack.Navigator>
   );
 }
@@ -58,8 +45,6 @@ function MenuStack() {
     <Stack.Navigator>
       <Stack.Screen name="Menu" component={Homescreen} />
       <Stack.Screen name="Product Detail" component={ProductDetail} />
-    </Stack.Navigator >
-    <Stack.Navigator>
       <Stack.Screen name="Pesan Sekarang" component={PesanSekarang} />
     </Stack.Navigator>
   );
@@ -68,32 +53,32 @@ function MenuStack() {
 function App() {
   return (
     <NavigationContainer>
-  <Tab.Navigator
-    screenOptions={({ route }) => ({
-      headerShown: false,
-      tabBarIcon: ({ focused, color, size }) => {
-        let iconName;
+      <Tab.Navigator
+        screenOptions={({ route }) => ({
+          headerShown: false,
+          tabBarIcon: ({ focused, color, size }) => {
+            let iconName;
 
-        if (route.name === 'Home') {
-          iconName = focused ? 'home' : 'home-outline';
-        } else if (route.name === 'Keranjang') {
-          iconName = focused ? 'cart' : 'cart-outline';
-        } else if (route.name === 'Profil') {
-          iconName = focused ? 'person' : 'person-outline';
-        }
+            if (route.name === 'Home') {
+              iconName = focused ? 'home' : 'home-outline';
+            } else if (route.name === 'Keranjang') {
+              iconName = focused ? 'cart' : 'cart-outline';
+            } else if (route.name === 'Profil') {
+              iconName = focused ? 'person' : 'person-outline';
+            }
 
-        return <Ionicons name={iconName} size={size} color={color} />;
-      },
-      tabBarLabel: () => null,
-    })}
-    initialRouteName="Home"
-  >
-    <Tab.Screen name="Keranjang" component={KeranjangScreen} />
-    <Tab.Screen name="Home" component={MenuStack} />
-    <Tab.Screen name="Profil" component={RiwayatStack} />
-  </Tab.Navigator>
-</NavigationContainer>
-
+            // You can return any component here as the tab icon
+            return <Ionicons name={iconName} size={size} color={color} />;
+          },
+          tabBarLabel: () => null, // Hide the label
+        })}
+        initialRouteName="Home"
+      >
+        <Tab.Screen name="Keranjang" component={KeranjangScreen} />
+        <Tab.Screen name="Home" component={MenuStack} />
+        <Tab.Screen name="Profil" component={RiwayatStack} />
+      </Tab.Navigator>
+    </NavigationContainer>
   );
 }
 
