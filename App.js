@@ -14,16 +14,26 @@ import StatusPembayaran from './screens/StatusPembayaran';
 import AboutStoreScreen from './screens/AboutStoreScreen';
 import EditProfileScreen from './screens/EditProfileScreen';
 import PesanSekarang from './components/PesanSekarang';
+import StatusPembayaranSelesai from './screens/StatusPembayaranSelesai';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
+
+function StatusPembayaranStack(){
+  return(
+<Stack.Navigator>
+  <Stack.Screen name="Status Pembayaran" component={StatusPembayaran}/>
+  <Stack.Screen name="Status Pembayaran Selesai" component={StatusPembayaranSelesai}/>
+</Stack.Navigator>
+  );
+}
 
 function RiwayatStack() {
   return (
     <Stack.Navigator>
       <Stack.Screen name="Profil" component={ProfilScreen} />
       <Stack.Screen name="Riwayat Transaksi" component={RiwayatPesan} />
-      <Stack.Screen name="Status Pembayaran" component={StatusPembayaran} />
+      <Stack.Screen name="Status Pembayaran" component={StatusPembayaranStack} />
       <Stack.Screen name="Tentang Toko" component={AboutStoreScreen} />
       <Stack.Screen name="Edit Profile" component={EditProfileScreen} />
     </Stack.Navigator>

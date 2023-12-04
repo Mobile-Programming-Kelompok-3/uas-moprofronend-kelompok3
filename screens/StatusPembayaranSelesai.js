@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Button, View, Text, FlatList, TouchableOpacity, StatusBar, Image } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 
-function StatusPembayaran() {
+function StatusPembayaranSelesai() {
     const [kategori, setKategori] = useState(
         [
             {
@@ -42,7 +42,7 @@ function StatusPembayaran() {
                     <Text style={{ color: '#FFFFFF', textAlign: 'center' }}>Validasi Admin</Text>
                 </TouchableOpacity>
 
-                <TouchableOpacity onPress={() => navigation.navigate("Status Pembayaran Selesai")} style={{ flex: 1, backgroundColor: '#FFFFFF', elevation: 3, paddingVertical: 20 }} >
+                <TouchableOpacity style={{ flex: 1, backgroundColor: '#FFFFFF', elevation: 3, paddingVertical: 20 }} onPress={() => navigation.navigate("Status Pembayaran Selesai", {item, quantity})}>
                     <Text style={{ color: '#528BF9', textAlign: 'center' }}>Selesai</Text>
                 </TouchableOpacity>
             </View>
@@ -92,4 +92,4 @@ function StatusPembayaran() {
     );
 }
 
-export default StatusPembayaran;
+export default StatusPembayaranSelesai;
