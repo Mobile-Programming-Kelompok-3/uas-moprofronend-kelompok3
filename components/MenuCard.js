@@ -34,7 +34,7 @@ const MenuCard = () => {
         value={searchQuery}
       />
 
-      <Text style={{ fontFamily: 'Poppins', marginLeft: 25, marginTop: 10, fontWeight: 'semi-bold' }}>
+      <Text style={{ fontFamily: 'Poppins', marginLeft: 25, marginTop: 10, fontWeight: 'bold' }}>
         Product Of View
       </Text>
       <FlatList
@@ -52,7 +52,7 @@ const MenuCard = () => {
                 marginVertical: 16,
                 paddingHorizontal: 8,
                 paddingVertical: 20,
-                position: 'relative', // added to make positioning absolute work
+                position: 'relative',
               }}>
               <Image
                 source={item.image}
@@ -65,22 +65,23 @@ const MenuCard = () => {
                   resizeMode: 'cover',
                 }}
               />
-              <Text style={{ paddingLeft: 10 }}>{item.name}</Text>
-              <Text style={{ paddingLeft: 10 }}>{item.price}</Text>
+              <Text style={{ paddingLeft: 10, fontFamily: 'Poppins' }}>{item.name}</Text>
+              {/* Adjusted the text style for price */}
+              <Text style={{ paddingLeft: 10, color: '#528BF9', fontFamily: 'Poppins' }}>{item.price}</Text>
               {/* Add the small shopping cart button */}
               <TouchableOpacity
-                onPress={() => {  navigation.navigate("Keranjang");
-                }}
+                onPress={() => { navigation.navigate("Keranjang"); }}
                 style={{
                   position: 'absolute',
                   bottom: 5,
                   right: 5,
-                  backgroundColor: 'lightgray',
+                  backgroundColor: '#528BF9', // Changed the button color
                   borderRadius: 10,
                   padding: 5,
                 }}
               >
-                <Text>🛒</Text>
+                {/* Changed the color of the cart icon to white */}
+                <Text style={{ color: 'white' }}>🛒</Text>
               </TouchableOpacity>
             </View>
           </TouchableOpacity>
