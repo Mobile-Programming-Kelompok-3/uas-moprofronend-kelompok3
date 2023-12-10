@@ -1,45 +1,149 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
-import Login from '../components/LoginPage';
-import Register from '../components/RegisterPage';
 
-const LoginPage = ({ navigation }) => {
-  const [username, setUsername] = useState('');
+import { Image, View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
+
+ 
+
+const Login = () => {
+
+  const [email, setEmail] = useState('');
+
   const [password, setPassword] = useState('');
 
+ 
+
   const handleLogin = () => {
-    console.log(`Username: ${username}, Password: ${password}`);
+
+    console.log('Email:', email);
+
+    console.log('Password:', password);
+
   };
 
-  const handleRegisterLink = () => {
-    navigation.navigate('RegisterPage');
-  };
+ 
 
   return (
-    <View style={styles.container}>
-      <Text style={{ justifyContent: 'center', alignItems: 'center' }}>Login Akun</Text>
-      <TextInput
-        style={styles.input}
-        placeholder="Username"
-        onChangeText={(text) => setUsername(text)}
-        value={username}
+
+    <View style={[styles.container, { backgroundColor: '#528BF9' }]}>
+
+      <Image
+
+        source={require('../assets/BeKi.png')} 
+
+        style={styles.logo}
+
       />
+
       <TextInput
-        style={styles.input}
+
+        style={[styles.input, { borderRadius: 10 }]}
+
+        placeholder="Email"
+
+        onChangeText={(text) => setEmail(text)}
+
+      />
+
+      <TextInput
+
+        style={[styles.input, { borderRadius: 10 }]}
+
         placeholder="Password"
+
         secureTextEntry
+
         onChangeText={(text) => setPassword(text)}
-        value={password}
+
       />
+
       <TouchableOpacity style={styles.button} onPress={handleLogin}>
+
         <Text style={styles.buttonText}>Login</Text>
+
       </TouchableOpacity>
-      <TouchableOpacity onPress={handleRegisterLink}>
-        <Text>Don't have an account? Register here.</Text>
-      </TouchableOpacity>
+
     </View>
+
   );
+
 };
 
-export default LoginPage;
+ 
 
+const styles = StyleSheet.create({
+
+  container: {
+
+    flex: 1,
+
+    justifyContent: 'center',
+
+    alignItems: 'center',
+
+    padding: 16,
+
+  },
+
+  logo: {
+
+    width: 120,
+
+    height: 160, 
+
+    marginBottom: 16,
+
+  },
+
+  title: {
+
+    fontSize: 24,
+
+    fontWeight: 'bold',
+
+    marginBottom: 16,
+
+  },
+
+  input: {
+
+    width: '100%',
+
+    height: 40,
+
+    borderColor: 'gray',
+
+    borderWidth: 1,
+
+    marginBottom: 16,
+
+    padding: 8,
+
+  },
+
+  button: {
+
+    backgroundColor: 'white',
+
+    padding: 10,
+
+    borderRadius: 5,
+
+  },
+
+  buttonText: {
+
+    color: '#528BF9',
+
+    fontSize: 16,
+
+    fontWeight: 'bold',
+
+    textAlign: 'center',
+
+  },
+
+});
+
+ 
+
+export default Login;
