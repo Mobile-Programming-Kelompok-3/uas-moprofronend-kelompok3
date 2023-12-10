@@ -35,8 +35,8 @@ function RiwayatPesan({ navigation }) {
   });
 
   const [dataBarang, setDataBarang] = useState([
-    {name: 'Pure Centella Acne Calming Toner', price: 'Rp.116.000', date: '1 Nov 2023', image: '../assets/pure.jpg'},
-    {name: 'Skintific Ceramide', price: 'Rp.115.000', date: '14 Nov 2023', image: '../assets/cera.jpg'}
+    {name: 'Pure Centella Acne Calming Toner', price: 'Rp.116.000', date: '1 Nov 2023', image: 'https://i.ibb.co/8x4Mk6n/pure.png'},
+    {name: 'Skintific Ceramide', price: 'Rp.115.000', date: '14 Nov 2023', image: 'https://i.ibb.co/12sC6fK/cera.png'}
   ]);
 
   return (
