@@ -74,7 +74,7 @@ function ProfileScreen({ navigation }) {
       </TouchableOpacity>
       <TouchableOpacity
         style={styles.cardButton}
-        onPress={() => navigation.navigate("OtherPage")}
+        onPress={() => navigation.navigate("Status Pembayaran")}
       >
         <Text style={styles.buttonText}>Status Pembayaran</Text>
         <svg
