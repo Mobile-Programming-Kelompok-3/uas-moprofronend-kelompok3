@@ -50,6 +50,14 @@ function MenuStack() {
   );
 }
 
+function KeranjangStack() {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen name="Keranjang" component={KeranjangScreen} />
+    </Stack.Navigator>
+  );
+}
+
 function App() {
   return (
     <NavigationContainer>
@@ -74,7 +82,7 @@ function App() {
         })}
         initialRouteName="Home"
       >
-        <Tab.Screen name="Keranjang" component={KeranjangScreen} />
+        <Tab.Screen name="Keranjang" component={KeranjangStack} />
         <Tab.Screen name="Home" component={MenuStack} />
         <Tab.Screen name="Profil" component={RiwayatStack} />
       </Tab.Navigator>

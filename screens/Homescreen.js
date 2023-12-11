@@ -4,7 +4,9 @@ import Header from '../components/Header'
 //import SearchBar from '../components/SearchBar'
 import MenuCard from '../components/MenuCard'
 
+
 const Homescreen = () => {
+  
   return (
     <ScrollView showsVerticalScrollIndicator={false}>
       <Header/>

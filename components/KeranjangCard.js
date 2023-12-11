@@ -6,7 +6,6 @@ import { useNavigation } from '@react-navigation/native';
 const KeranCard = () => {
   return (
     <View>
-      <Text style={{ fontFamily: 'Poppins', marginLeft: 25, marginTop: 10, fontWeight: 'bold' }}>KERANJANG</Text>
       <FlatList
         data={KeranjangList}
         renderItem={({ item }) => (
