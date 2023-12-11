@@ -31,7 +31,7 @@ function ProfileScreen({ navigation }) {
       {/* Card Button untuk Pindah Halaman */}
       <TouchableOpacity
         style={styles.cardButton}
-        onPress={() => navigation.navigate("Edit Profile")}
+        onPress={() => navigation.navigate("OtherPage")}
       >
         <Text style={styles.buttonText}>Edit Profil</Text>
         <svg

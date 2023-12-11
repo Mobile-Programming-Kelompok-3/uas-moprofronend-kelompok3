@@ -15,6 +15,8 @@ import AboutStoreScreen from './screens/AboutStoreScreen';
 import EditProfileScreen from './screens/EditProfileScreen';
 import PesanSekarang from './components/PesanSekarang';
 import StatusPembayaranSelesai from './screens/StatusPembayaranSelesai';
+import Login from './screens/Login';
+import FAQList from './components/FAQList';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -46,6 +48,7 @@ function MenuStack() {
       <Stack.Screen name="Menu" component={Homescreen} />
       <Stack.Screen name="Product Detail" component={ProductDetail} />
       <Stack.Screen name="Pesan Sekarang" component={PesanSekarang} />
+      <Stack.Screen name="FAQ" component={FAQList} />
     </Stack.Navigator>
   );
 }
@@ -85,6 +88,7 @@ function App() {
         <Tab.Screen name="Keranjang" component={KeranjangStack} />
         <Tab.Screen name="Home" component={MenuStack} />
         <Tab.Screen name="Profil" component={RiwayatStack} />
+        <Tab.Screen name="Login" component={Login} />
       </Tab.Navigator>
     </NavigationContainer>
   );

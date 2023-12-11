@@ -1,11 +1,14 @@
 import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
 import React from 'react';
+import { useNavigation } from '@react-navigation/native';
+
 
 const Header = () => {
+  const navigation = useNavigation();
   return (
     <View style={styles.headerContainer}>
       <Text style={styles.headerText}>Hi, Pengguna</Text>
-      <TouchableOpacity style={styles.chatIconContainer}>
+      <TouchableOpacity onPress={() => navigation.navigate("FAQ")} style={styles.chatIconContainer} >
         <Text style={styles.chatIcon}>💬</Text>
       </TouchableOpacity>
     </View>
