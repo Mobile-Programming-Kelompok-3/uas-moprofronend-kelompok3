@@ -1,5 +1,13 @@
 import firebase from 'firebase';
 
+const express = requires("express");
+const app = express();
+const cors = require("cors")
+  app.use(
+    cors({
+      origin: "*",
+    })
+  );
 firebase.initializeApp({
     apiKey: "AIzaSyDy_x0wD1HJdGBdMVa0bGeosOn_RhWj7hM",
     authDomain: "dlillahproject---crud.firebaseapp.com",

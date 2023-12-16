@@ -1,33 +1,52 @@
 // PesanSekarang.js
-import React, { useState } from 'react';
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
 import { View, Text, Image, TextInput, ScrollView, StyleSheet, TouchableOpacity } from 'react-native';
 
 const PesanSekarang = ({ route }) => {
   const { item, quantity } = route.params;
   const [recipientAddress, setRecipientAddress] = useState('');
   const [paymentProof, setPaymentProof] = useState('');
+  const [product, setProduct] = useState();
 
-  const totalPayment = item.price * quantity;
+  useEffect(() => {
+    // Gunakan useEffect untuk mengambil data produk dari API saat komponen dimount
+    const fetchProduct = async () => {
+      try {
+        const response = await axios.get(`http://127.0.0.1:8000/produksend/${item.id}`);
+        // Memperbarui state produk dengan data yang diterima dari API
+        setProduct(response.data);
+        console.log(product);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchProduct();
+  }, [item]);
+  console.log(item);
+
+  const totalPayment = item.harga * quantity;
 
   const handleBayar = () => {
     // Implement logic to process the payment
     console.log(`Paid for ${quantity} ${item.name} - Total: ${totalPayment}`);
   };
-console.log(item.price);
+console.log(totalPayment);
   return (
     <ScrollView style={{ flex: 1 }}>
       <View style={styles.container}>
         <Image
-          source={item.image}
+          source={{uri:item?.gambar}}
           style={{
             width: '100%',
             height: 300,
             resizeMode: 'cover',
           }}
         />
-        <Text style={styles.productName}>{item.name}</Text>
-        <Text style={styles.productPrice}>{item.price}</Text>
-        <Text style={styles.totalOrder}>Total Pesanan: {totalPayment}</Text>
+        <Text style={styles.productName}>{item?.name}</Text>
+        <Text style={styles.productPrice}>Rp. {item.harga}</Text>
+        <Text style={styles.totalOrder}>Total Pesanan: {quantity}</Text>
+        <Text style={styles.totalOrder}>Total Harga: {totalPayment}</Text>
 
         <Text style={styles.label}>Alamat Penerima</Text>
         <TextInput

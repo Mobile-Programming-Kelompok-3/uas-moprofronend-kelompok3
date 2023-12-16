@@ -3,7 +3,8 @@ import React from 'react';
 import KeranjangCard from '../components/KeranjangCard';
 import HeaderPage from '../components/HeaderPage';
 
-function KeranjangScreen({navigation}) {
+function KeranjangScreen({navigation }) {
+  
   React.useLayoutEffect(() => {
     navigation.setOptions({
       header: () => <HeaderPage title="Keranjang" />, // Menggunakan komponen Header dengan properti title

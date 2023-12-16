@@ -1,10 +1,28 @@
 // ProductDetail.js
-import React, { useState } from 'react';
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
 import { View, Text, Image, TouchableOpacity, Button, ScrollView } from 'react-native';
 
 const ProductDetail = ({ route, navigation }) => {
   const { item } = route.params;
   const [quantity, setQuantity] = useState(1);
+  const [product, setProduct] = useState();
+
+  useEffect(() => {
+    // Gunakan useEffect untuk mengambil data produk dari API saat komponen dimount
+    const fetchProduct = async () => {
+      try {
+        const response = await axios.get(`http://127.0.0.1:8000/produksend/${item.id}`);
+        // Memperbarui state produk dengan data yang diterima dari API
+        setProduct(response.data);
+        console.log(product);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchProduct();
+  }, [item]);
 
   const handleIncrement = () => {
     setQuantity(quantity + 1);
@@ -31,7 +49,7 @@ const ProductDetail = ({ route, navigation }) => {
     <ScrollView style={{ flex: 1 }}>
       <View style={{ padding: 16 }}>
         <Image
-          source={item.image}
+          source={{uri:product?.gambar}}
           style={{
             width: '100%',
             height: 300,
@@ -39,9 +57,9 @@ const ProductDetail = ({ route, navigation }) => {
           }}
         />
         <Text style={{ fontFamily: 'Poppins-Regular', fontSize: 24, fontWeight: 'bold', marginVertical: 10 }}>
-          {item.name}
+        {product?.name}
         </Text>
-        <Text style={{ fontFamily: 'Poppins-Regular', fontSize: 18, marginBottom: 10 }}>{item.price}</Text>
+        <Text style={{ fontFamily: 'Poppins-Regular', fontSize: 18, marginBottom: 10 }}>Rp. {product?.harga}</Text>
 
         <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 20 }}>
           <TouchableOpacity onPress={handleDecrement} style={{ padding: 10, backgroundColor: 'lightgray', borderRadius: 5 }}>
@@ -54,10 +72,10 @@ const ProductDetail = ({ route, navigation }) => {
         </View>
 
         <Text style={{ fontFamily: 'Poppins-Regular', fontSize: 16, marginBottom: 10, fontWeight: 'bold' }}>Tentang Produk</Text>
-        <Text style={{ fontFamily: 'Poppins-Regular', fontSize: 14, marginBottom: 20, textAlign: 'justify'}}>{item.description}</Text>
+        <Text style={{ fontFamily: 'Poppins-Regular', fontSize: 14, marginBottom: 20, textAlign: 'justify'}}>{product?.deskripsi}</Text>
 
         <View style={{ flexDirection: 'row', justifyContent: 'center', backgroundColor: '#528BF9', paddingVertical: 8 }}>
-  <Button title="Keranjang" onPress={() => navigation.navigate("Keranjang")} />
+  <Button title="Keranjang" onPress={() => navigation.navigate("Keranjang", { item, quantity })} />
   <Button title="Pesan Sekarang" onPress={() => navigation.navigate("Pesan Sekarang", {item, quantity})} />
 </View>
 

@@ -8,12 +8,29 @@ import {
   TextInput,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import { MenuList, colors } from "../Constant";
+import axios from "axios";
 
 const MenuCard = () => {
   const navigation = useNavigation();
   const [searchQuery, setSearchQuery] = useState("");
+  const [MenuList, setMenuList] = useState([]);
   const [filteredMenu, setFilteredMenu] = useState(MenuList);
+  
+
+  useEffect(() => {
+    axios.get('http://127.0.0.1:8000/produksend')
+      .then(response => {
+        console.log(response.data); // Data dari server Laravel
+        setMenuList(response.data);
+        setFilteredMenu(response.data);
+      })
+      .catch(error => {
+        console.error(error);
+        // Tambahkan log atau notifikasi error jika perlu
+      });
+  }, []);
+  
+  
 
   useEffect(() => {
     // Filter the menu items based on the search query
@@ -49,7 +66,7 @@ const MenuCard = () => {
           fontWeight: "bold",
         }}
       >
-        Product Of View
+        Makanan
       </Text>
       <FlatList
         data={filteredMenu}
@@ -59,7 +76,7 @@ const MenuCard = () => {
           >
             <View
               style={{
-                backgroundColor: colors.COLOR_LIGHT,
+                backgroundColor: "#ffffff",
                 shadowColor: "#000",
                 shadowOffset: { width: 0, height: 4 },
                 shadowOpacity: 0.1,
@@ -72,7 +89,7 @@ const MenuCard = () => {
               }}
             >
               <Image
-                source={item.image}
+                source={{uri:item.gambar}}
                 style={{
                   borderTopRightRadius: 16,
                   borderTopLeftRadius: 16,
@@ -93,7 +110,7 @@ const MenuCard = () => {
                   fontFamily: "Poppins",
                 }}
               >
-                {item.price}
+                Rp. {item.harga}
               </Text>
               {/* Add the small shopping cart button */}
               <TouchableOpacity
