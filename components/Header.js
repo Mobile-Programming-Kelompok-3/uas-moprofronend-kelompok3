@@ -8,16 +8,13 @@ const Header = () => {
   return (
     <View style={styles.headerContainer}>
       <Text style={styles.headerText}>Hi, Pengguna</Text>
-      <TouchableOpacity onPress={() => navigation.navigate("FAQ")} style={styles.chatIconContainer} >
-        <Text style={styles.chatIcon}>💬</Text>
-      </TouchableOpacity>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   headerContainer: {
-    backgroundColor: '#528BF9',
+    backgroundColor: '#04B4A2',
     paddingVertical: 10,
     paddingHorizontal: 16,
     flexDirection: 'row',
