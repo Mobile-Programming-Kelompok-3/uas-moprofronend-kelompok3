@@ -1,13 +1,28 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { View, Text, Image, TouchableOpacity, StyleSheet } from "react-native";
 import HeaderPage from "../components/HeaderPage";
+import DefaultProfileImage from "../assets/ProfilImg.png";
+import axios from "axios";
 
-function ProfileScreen({ navigation }) {
-  const userProfile = {
-    username: "Ege Fernandes",
-    email: "glorymu@gmail.com",
-    profileImage: require("../assets/ProfilImg.png"),
-  };
+function ProfileScreen({ navigation , userId }) {
+  const [userProfile, setUserProfile] = useState(null);
+  
+  console.log(userId);
+  useEffect(() => {
+    // Fetch user profile data from the backend
+    const fetchUserProfile = async () => {
+      try {
+        const response = await axios.get(`http://127.0.0.1:8000/profils/${userId}`);
+        // Assuming the response data structure matches the expected user profile format
+        setUserProfile(response.data);
+        console.log(response.data);
+      } catch (error) {
+        console.error("Error fetching user profile:", error);
+      }
+    };
+
+    fetchUserProfile();
+  }, [userId]);
 
   React.useLayoutEffect(() => {
     navigation.setOptions({
@@ -18,20 +33,21 @@ function ProfileScreen({ navigation }) {
   return (
     <View style={styles.container}>
       <View style={styles.userInfoContainer}>
-        {/* Gambar Profil */}
-        <Image source={userProfile.profileImage} style={styles.profileImage} />
-
-        {/* Nama Pengguna dan Email */}
-        <View style={styles.userInfo}>
-          <Text style={styles.username}>{userProfile.username}</Text>
-          <Text style={styles.email}>{userProfile.email}</Text>
-        </View>
+      <Image source={
+          userProfile?.user?.gambar
+            ? { uri: userProfile.user.gambar }
+            : DefaultProfileImage
+        } style={styles.profileImage} />
+            <View style={styles.userInfo}>
+              <Text style={styles.username}>{userProfile ? userProfile.user.name : "Loading..."}</Text>
+              <Text style={styles.email}>{userProfile ? userProfile.user.email : "Loading..."}</Text>
+            </View>
       </View>
 
       {/* Card Button untuk Pindah Halaman */}
       <TouchableOpacity
         style={styles.cardButton}
-        onPress={() => navigation.navigate("OtherPage")}
+        onPress={() => navigation.navigate("Edit Profil", { userId: userId })}
       >
         <Text style={styles.buttonText}>Edit Profil</Text>
         <svg
@@ -116,7 +132,7 @@ function ProfileScreen({ navigation }) {
       </TouchableOpacity>
       <TouchableOpacity
         style={styles.logoutButton}
-        onPress={() => navigation.navigate("OtherPage")}
+        onPress={() => navigation.navigate("Edit Profil")}
       >
         <Text style={styles.logoutText}>Logout</Text>
       </TouchableOpacity>
@@ -176,7 +192,7 @@ const styles = StyleSheet.create({
     flexDirection: "row", // Membuat konten sejajar (horizontal)
     alignItems: "center", // Mengatur konten secara vertikal
     justifyContent: "center", // Menengahkan konten secara horizontal
-    backgroundColor: "#528BF9",
+    backgroundColor: "#04B4A2",
     paddingVertical: 15,
     paddingHorizontal: 20,
     borderRadius: 10,

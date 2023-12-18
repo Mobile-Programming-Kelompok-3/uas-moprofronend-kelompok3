@@ -1,52 +1,85 @@
+import axios from 'axios';
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, Image, StyleSheet } from 'react-native';
+import { ImageBackground, View, Text, TextInput, TouchableOpacity, Image, StyleSheet } from 'react-native';
 
 const Register = ({ navigation }) => {
-  const [fullName, setFullName] = useState('');
+  const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-
-  const handleRegister = () => {
-    console.log('fullName:', fullName);
-    console.log('Email:', email);
-    console.log('Password:', password);
-    // Tambahkan logika autentikasi di sini jika diperlukan
+  
+  // Fungsi untuk melakukan registrasi dengan menggunakan token CSRF
+  const handleRegister = async () => {
+    try {
+      // Mendapatkan CSRF token
+  
+      // Melakukan POST request ke endpoint registrasi dengan CSRF token
+      const response = await axios.post(
+        'http://127.0.0.1:8000/registers',
+        {
+          name: name,
+          email: email,
+          password: password,
+        },
+        {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        }
+      );
+  
+      console.log('Registrasi berhasil:', response.data);
+      // Lakukan navigasi atau logika setelah registrasi berhasil
+    } catch (error) {
+      console.error('Registrasi gagal:', error);
+      // Tambahkan logika penanganan kesalahan
+    }
   };
+  
 
   const navigateToLogin = () => {
     navigation.navigate('Login'); // Navigasi kembali ke halaman login
   };
 
   return (
-    <View style={styles.container}>
+    <ImageBackground
+      source={require('../assets/BG-LOGIN.jpg')} // Use the same background image as Login
+      style={styles.container}
+    >
+      <View style={styles.overlay}>
       <Image
-        source={require('../assets/BeKi.png')}
-        style={styles.logo}
-      />
-      <Text style={styles.title}>Registrasi</Text>
-      <TextInput
-        style={styles.input}
-        placeholder="Nama Lengkap"
-        onChangeText={(text) => setFullName(text)}
-      />
-      <TextInput
-        style={styles.input}
-        placeholder="Email"
-        onChangeText={(text) => setEmail(text)}
-      />
-      <TextInput
-        style={styles.input}
-        placeholder="Password"
-        secureTextEntry
-        onChangeText={(text) => setPassword(text)}
-      />
-      <TouchableOpacity style={styles.button} onPress={handleRegister}>
-        <Text style={styles.buttonText}>Daftar</Text>
-      </TouchableOpacity>
-      <TouchableOpacity onPress={navigateToLogin}>
-        <Text style={styles.registerText}>Sudah punya akun? Masuk di sini</Text>
-      </TouchableOpacity>
-    </View>
+          source={require('../assets/Logo Dlillah.png')}
+          style={styles.logo}
+        />
+        <Text style={styles.title}>Registrasi</Text> {/* Match title style */}
+        {/* Use the same TextInput style as Login */}
+        <TextInput
+          style={[styles.input, { borderRadius: 10 }]}
+          placeholder="Nama Lengkap"
+          value={name}
+          onChangeText={(text) => setName(text)}
+        />
+        <TextInput
+          style={[styles.input, { borderRadius: 10 }]}
+          placeholder="Email"
+          value={email}
+          onChangeText={(text) => setEmail(text)}
+        />
+        <TextInput
+          style={[styles.input, { borderRadius: 10 }]}
+          placeholder="Password"
+          value={password}
+          secureTextEntry
+          onChangeText={(text) => setPassword(text)}
+        />
+        {/* Use the same TouchableOpacity style as Login */}
+        <TouchableOpacity style={styles.button} onPress={handleRegister}>
+          <Text style={styles.buttonText}>Daftar</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={navigateToLogin}>
+          <Text style={styles.registerText}>Sudah punya akun? Masuk di sini</Text>
+        </TouchableOpacity>
+      </View>
+    </ImageBackground>
   );
 };
 
@@ -56,18 +89,25 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     padding: 16,
-    backgroundColor: '#528BF9',
+  },
+  overlay: {
+    backgroundColor: 'rgba(255, 255, 255, 0.8)',
+    padding: 16,
+    borderRadius: 10,
+    width: '80%',
+    alignItems: 'center',
   },
   logo: {
-    width: 120,
-    height: 160,
+    width: 250,
+    height: 100,
     marginBottom: 16,
+    resizeMode: 'contain',
   },
   title: {
     fontSize: 24,
     fontWeight: 'bold',
     marginBottom: 16,
-    color: 'white',
+    color: '#04B4A2', // Match color to Login component
   },
   input: {
     width: '100%',
@@ -83,15 +123,16 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     padding: 10,
     borderRadius: 5,
+    marginBottom: 15,
   },
   buttonText: {
-    color: '#528BF9',
+    color: '#04B4A2',
     fontSize: 16,
     fontWeight: 'bold',
     textAlign: 'center',
   },
   registerText: {
-    color: 'white',
+    color: '#04B4A2', // Match color to Login component
     marginTop: 16,
     textDecorationLine: 'underline',
   },

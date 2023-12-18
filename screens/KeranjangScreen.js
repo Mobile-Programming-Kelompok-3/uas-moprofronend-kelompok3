@@ -1,10 +1,9 @@
-import { ScrollView, Text, View } from 'react-native';
+import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import React from 'react';
 import KeranjangCard from '../components/KeranjangCard';
 import HeaderPage from '../components/HeaderPage';
 
-function KeranjangScreen({navigation }) {
-  
+function KeranjangScreen({navigation}) {
   React.useLayoutEffect(() => {
     navigation.setOptions({
       header: () => <HeaderPage title="Keranjang" />, // Menggunakan komponen Header dengan properti title
@@ -12,10 +11,35 @@ function KeranjangScreen({navigation }) {
   }, [navigation]);
 
     return (
+      <View style={styles.container}>
       <ScrollView showsVerticalScrollIndicator={false}>
-      <KeranjangCard/>
-    </ScrollView>
+        <KeranjangCard />
+      </ScrollView>
+      {/* Tombol Pesan Sekarang */}
+      <TouchableOpacity
+        style={styles.pesanButton}
+        onPress={() => navigation.navigate('Pesan Sekarang', { item, quantity: 3 })}
+      >
+        <Text style={{ color: 'white', fontWeight: 'bold' }}>Pesan Sekarang</Text>
+      </TouchableOpacity>
+    </View>
     );
   }
 
-export default KeranjangScreen
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'space-between',
+  },
+  pesanButton: {
+    backgroundColor: '#04B4A2',
+    borderRadius: 10,
+    padding: 10,
+    alignItems: 'center',
+    justifyContent: 'center',
+    margin: 16,
+  },
+});
+
+export default KeranjangScreen;

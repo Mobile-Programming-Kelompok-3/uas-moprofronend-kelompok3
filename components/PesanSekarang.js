@@ -1,46 +1,68 @@
-// PesanSekarang.js
-import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { View, Text, Image, TextInput, ScrollView, StyleSheet, TouchableOpacity } from 'react-native';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
+import * as ImagePicker from 'expo-image-picker';
+import axios from 'axios';
 
-const PesanSekarang = ({ route }) => {
+const PesanSekarang = ({ route, userId }) => {
   const { item, quantity } = route.params;
   const [recipientAddress, setRecipientAddress] = useState('');
-  const [paymentProof, setPaymentProof] = useState('');
-  const [product, setProduct] = useState();
-
-  useEffect(() => {
-    // Gunakan useEffect untuk mengambil data produk dari API saat komponen dimount
-    const fetchProduct = async () => {
-      try {
-        const response = await axios.get(`http://127.0.0.1:8000/produksend/${item.id}`);
-        // Memperbarui state produk dengan data yang diterima dari API
-        setProduct(response.data);
-        console.log(product);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-    fetchProduct();
-  }, [item]);
-  console.log(item);
+  const [paymentProof, setPaymentProof] = useState(null); // State untuk bukti pembayaran
+  const [notes, setNotes] = useState('');
+  const [orderDate, setOrderDate] = useState('');
 
   const totalPayment = item.harga * quantity;
 
+  useEffect(() => {
+    // Fetch user profile data from the backend
+    const fetchUserProfile = async () => {
+      try {
+        const response = await axios.get(`http://127.0.0.1:8000/profils/${userId}`);
+        const userData = response.data.user;
+        setRecipientAddress(userData.alamat);
+        console.log(response.data);
+      } catch (error) {
+        console.error("Error fetching user profile:", error);
+      }
+    };
+
+    fetchUserProfile();
+  }, [userId]);
+
   const handleBayar = () => {
-    // Implement logic to process the payment
     console.log(`Paid for ${quantity} ${item.name} - Total: ${totalPayment}`);
   };
-console.log(totalPayment);
+
+  const handleDateChange = (date) => {
+    setOrderDate(date);
+  };
+
+  const selectImage = async () => {
+  try {
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
+    });
+    if (!result.cancelled) {
+      handleSubmit(result.uri); // Panggil fungsi handleSubmit dengan URI gambar
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
+
   return (
-    <ScrollView style={{ flex: 1 }}>
+    <ScrollView style={{ flex: 1, backgroundColor: 'white' }}>
       <View style={styles.container}>
         <Image
-          source={{uri:item?.gambar}}
+          source={{ uri: item?.gambar }}
           style={{
-            width: '100%',
+            width: "100%",
             height: 300,
-            resizeMode: 'cover',
+            resizeMode: "cover",
           }}
         />
         <Text style={styles.productName}>{item?.name}</Text>
@@ -56,15 +78,41 @@ console.log(totalPayment);
           onChangeText={(text) => setRecipientAddress(text)}
         />
 
-        <Text style={styles.label}>Bukti Pembayaran</Text>
+<Text style={styles.label}>Bukti Pembayaran</Text>
+        <View style={styles.imageInputContainer}>
+          {paymentProof && <Image source={{ uri: paymentProof }} style={styles.paymentProofImage} />}
+          <TouchableOpacity onPress={selectImage}>
+            <Text style={styles.selectImageButton}>Pilih Gambar</Text>
+          </TouchableOpacity>
+        </View>
+        <Text style={styles.label}>Catatan</Text>
         <TextInput
-          style={styles.input}
-          placeholder="Masukkan bukti pembayaran"
-          value={paymentProof}
-          onChangeText={(text) => setPaymentProof(text)}
+          style={[styles.input, { height: 100 }]}
+          placeholder="Catatan"
+          multiline
+          value={notes}
+          onChangeText={(text) => setNotes(text)}
         />
 
-        <TouchableOpacity style={styles.bayarButton} onPress={handleBayar}>
+        <DatePicker
+          selected={orderDate}
+          onChange={handleDateChange}
+          placeholderText="Pilih Tanggal Pemesanan"
+          dateFormat="yyyy-MM-dd"
+          todayButton="Hari Ini"
+          style={styles.input} // Apply the input styles to the DatePicker
+          showYearDropdown
+          showMonthDropdown
+          dropdownMode="select"
+        />
+
+        {orderDate && (
+          <Text style={styles.selectedDateText}>
+            Tanggal Pemesanan: {orderDate.toISOString().split("T")[0]}
+          </Text>
+        )}
+
+<TouchableOpacity style={styles.bayarButton} onPress={handleBayar}>
           <Text style={styles.bayarButtonText}>Bayar: {totalPayment}</Text>
         </TouchableOpacity>
       </View>
@@ -77,29 +125,25 @@ const styles = StyleSheet.create({
     padding: 16,
   },
   productName: {
-    fontFamily: 'Poppins-Regular',
     fontSize: 24,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     marginVertical: 10,
   },
   productPrice: {
-    fontFamily: 'Poppins-Regular',
     fontSize: 18,
     marginBottom: 10,
   },
   totalOrder: {
-    fontFamily: 'Poppins-Regular',
     fontSize: 16,
     marginBottom: 20,
   },
   label: {
-    fontFamily: 'Poppins-Regular',
     fontSize: 16,
     marginBottom: 5,
   },
   input: {
     borderWidth: 1,
-    borderColor: 'gray',
+    borderColor: "gray",
     borderRadius: 5,
     paddingVertical: 10,
     paddingHorizontal: 16,
@@ -107,17 +151,35 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   bayarButton: {
-    backgroundColor: '#528BF9',
+    backgroundColor: "#04B4A2",
     paddingVertical: 15,
     borderRadius: 10,
-    alignItems: 'center',
-    width: '100%',
+    alignItems: "center",
+    width: "100%",
   },
   bayarButtonText: {
-    fontFamily: 'Poppins-Regular',
-    color: 'white',
+    color: "white",
     fontSize: 18,
-    fontWeight: '500',
+    fontWeight: "500",
+  },
+  selectedDateText: {
+    fontSize: 16,
+    marginTop: 10,
+  },imageInputContainer: {
+    marginBottom: 20,
+    alignItems: 'center',
+  },
+  paymentProofImage: {
+    width: 200,
+    height: 200,
+    resizeMode: 'contain',
+    marginBottom: 10,
+    borderWidth: 1,
+    borderColor: 'gray',
+  },
+  selectImageButton: {
+    fontSize: 16,
+    color: 'blue',
   },
 });
 

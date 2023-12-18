@@ -1,11 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import Homescreen from "./screens/Homescreen";
 import ProfilScreen from "./screens/ProfilScreen";
 import KeranjangScreen from "./screens/KeranjangScreen";
 import RiwayatPesan from "./screens/RiwayatPesan";
-// import RiwayatPesanSudahBayar from "./screens/RiwayatPesanSudahBayar";
+import RiwayatPesanSudahBayar from "./screens/RiwayatPesanSudahBayar";
 import ProductDetail from "./components/ProductDetail";
 import Navigation from "./components/Navigation";
 import { NavigationContainer } from "@react-navigation/native";
@@ -18,6 +18,7 @@ import PesanSekarang from "./components/PesanSekarang";
 import StatusPembayaranSelesai from "./screens/StatusPembayaranSelesai";
 import Login from "./screens/Login";
 import FAQList from "./components/FAQList";
+import Register from "./screens/Register";
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -56,10 +57,12 @@ function StatusPembayaranStack() {
   );
 }
 
-function RiwayatStack() {
+function RiwayatStack({ userId }) {
   return (
     <Stack.Navigator>
-      <Stack.Screen name="Profil" component={ProfilScreen} />
+      <Stack.Screen name="Profil">
+        {(props) => <ProfilScreen {...props} userId={userId} />}
+      </Stack.Screen>
       <Stack.Screen
         name="Riwayat Transaksi"
         component={RiwayatTransaksiStack}
@@ -75,7 +78,7 @@ function RiwayatStack() {
   );
 }
 
-function MenuStack() {
+function MenuStack({ userId }) {
   return (
     <Stack.Navigator>
       <Stack.Screen
@@ -84,7 +87,9 @@ function MenuStack() {
         options={{ headerShown: false }}
       />
       <Stack.Screen name="Product Detail" component={ProductDetail} />
-      <Stack.Screen name="Pesan Sekarang" component={PesanSekarang} />
+      <Stack.Screen name="Pesan Sekarang">
+        {(props) => <PesanSekarang {...props} userId={userId} />}
+      </Stack.Screen>
       <Stack.Screen name="FAQ" component={FAQList} />
     </Stack.Navigator>
   );
@@ -99,37 +104,68 @@ function KeranjangStack() {
 }
 
 function App() {
-  return (
-    <NavigationContainer>
-      <Tab.Navigator
-        screenOptions={({ route }) => ({
-          headerShown: false,
-          tabBarIcon: ({ focused, color, size }) => {
-            let iconName;
+  const [isLoggedIn, setIsLoggedIn] = useState(false); // Status login sederhana
+  const [userId, setUserId] = useState(null);
+  const renderTabs = () => {
+    if (isLoggedIn) {
+      return (
+        <Tab.Navigator
+          screenOptions={({ route }) => ({
+            headerShown: false,
+            tabBarIcon: ({ focused, color, size }) => {
+              let iconName;
 
-            if (route.name === "Home") {
-              iconName = focused ? "home" : "home-outline";
-            } else if (route.name === "Keranjang") {
-              iconName = focused ? "cart" : "cart-outline";
-            } else if (route.name === "Profil") {
-              iconName = focused ? "person" : "person-outline";
-            }
+              if (route.name === "Home") {
+                iconName = focused ? "home" : "home-outline";
+              } else if (route.name === "Keranjang") {
+                iconName = focused ? "cart" : "cart-outline";
+              } else if (route.name === "Profil") {
+                iconName = focused ? "person" : "person-outline";
+              }
 
-            const iconColor = focused ? "red" : "gray";
-            // You can return any component here as the tab icon
-            return <Ionicons name={iconName} size={size} color="#04B4A2" />;
-          },
-          tabBarLabel: () => null, // Hide the label
-        })}
-        initialRouteName="Home"
-      >
-        <Tab.Screen name="Keranjang" component={KeranjangStack} />
-        <Tab.Screen name="Home" component={MenuStack} />
-        <Tab.Screen name="Profil" component={RiwayatStack} />
-        <Tab.Screen name="Login" component={Login} />
-      </Tab.Navigator>
-    </NavigationContainer>
-  );
+              // You can return any component here as the tab icon
+              return <Ionicons name={iconName} size={size} color="#04B4A2" />;
+            },
+            tabBarLabel: () => null, // Hide the label
+          })}
+          initialRouteName="Home"
+        >
+          <Tab.Screen name="Keranjang" component={KeranjangStack} />
+          <Tab.Screen
+            name="Home"
+            component={() => <MenuStack userId={userId} />}
+          />
+
+          <Tab.Screen
+            name="Profil"
+            component={() => <RiwayatStack userId={userId} />}
+          />
+        </Tab.Navigator>
+      );
+    } else {
+      return (
+        <Tab.Navigator
+          screenOptions={{
+            tabBarButton: () => null,
+          }}
+          initialRouteName="Login"
+        >
+          <Tab.Screen name="Login">
+            {(props) => (
+              <Login
+                {...props}
+                setIsLoggedIn={setIsLoggedIn}
+                setUserId={setUserId}
+              />
+            )}
+          </Tab.Screen>
+          <Tab.Screen name="Register" component={Register} />
+        </Tab.Navigator>
+      );
+    }
+  };
+
+  return <NavigationContainer>{renderTabs()}</NavigationContainer>;
 }
 
 export default App;
