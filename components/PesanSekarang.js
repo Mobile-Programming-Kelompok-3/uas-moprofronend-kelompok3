@@ -30,9 +30,6 @@ const PesanSekarang = ({ route, userId }) => {
     fetchUserProfile();
   }, [userId]);
 
-  const handleBayar = () => {
-    console.log(`Paid for ${quantity} ${item.name} - Total: ${totalPayment}`);
-  };
 
   const handleDateChange = (date) => {
     setOrderDate(date);
@@ -53,6 +50,32 @@ const PesanSekarang = ({ route, userId }) => {
     console.log(error);
   }
 };
+const handleBayar = async (imageURI) => {
+  try {
+    // Upload image terlebih dahulu ke server atau penyimpanan file (misalnya AWS S3)
+    // Setelah berhasil diunggah, dapatkan URL gambar dari server
+    const uploadedImageUrl = 'URL_GAMBAR_YANG_DIUNGGGAH'; // Ganti dengan URL gambar yang diunggah
+
+    // Kirim data transaksi ke backend
+    const response = await axios.post(`http://127.0.0.1:8000/transaksi/${userId}`, {
+      produk_id: item.id,
+      total_pesanan: quantity,
+      total_harga: totalPayment,
+      catatan: notes,
+      bukti_pembayaran: uploadedImageUrl,
+      tanggal_pemesanan: orderDate.toISOString().split("T")[0],
+      alamat_penerima: recipientAddress,
+      user_id: userId,
+      status: 0,
+    });
+
+    // Lakukan sesuatu setelah berhasil mengirim data, seperti navigasi atau tindakan lainnya
+    console.log('Data transaksi berhasil dikirim:', response.data);
+  } catch (error) {
+    console.error('Error saat mengirim data transaksi:', error);
+  }
+};
+
 
   return (
     <ScrollView style={{ flex: 1, backgroundColor: 'white' }}>
