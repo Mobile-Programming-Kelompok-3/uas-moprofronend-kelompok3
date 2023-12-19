@@ -40,14 +40,12 @@ function RiwayatTransaksiStack() {
   );
 }
 
-function StatusPembayaranStack() {
+function StatusPembayaranStack({ userId }) {
   return (
     <Stack.Navigator>
-      <Stack.Screen
-        name="Status Pembayaran"
-        component={StatusPembayaran}
-        options={{ headerShown: false }}
-      />
+      <Stack.Screen name="Status Pembayaran" options={{ headerShown: false }}>
+        {(props) => <StatusPembayaran {...props} userId={userId} />}
+      </Stack.Screen>
       <Stack.Screen
         name="Status Pembayaran Selesai"
         component={StatusPembayaranSelesai}
@@ -67,10 +65,9 @@ function RiwayatStack({ userId }) {
         name="Riwayat Transaksi"
         component={RiwayatTransaksiStack}
       />
-      <Stack.Screen
-        name="Status Pembayaran"
-        component={StatusPembayaranStack}
-      />
+      <Stack.Screen name="Status Pembayaran">
+        {(props) => <StatusPembayaranStack {...props} userId={userId} />}
+      </Stack.Screen>
       <Stack.Screen name="Tentang Toko" component={AboutStoreScreen} />
       <Stack.Screen name="Edit Profile" component={EditProfileScreen} />
       <Stack.Screen name="Edit Profil" component={EditProfileScreen} />

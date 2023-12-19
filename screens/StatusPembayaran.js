@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Button,
   View,
@@ -10,7 +10,10 @@ import {
 } from "react-native";
 
 
-function StatusPembayaran({ navigation }) {
+
+function StatusPembayaran({ navigation, userId }) {
+  
+  
   const [kategori, setKategori] = useState([
     {
       keterangan: "Validasi Admin",
@@ -20,24 +23,34 @@ function StatusPembayaran({ navigation }) {
     },
   ]);
 
+  console.log(userId);
   const [seleksiKategori, setSeleksiKategori] = useState({
     keterangan: "Validasi Admin",
   });
 
-  const [dataBarang, setDataBarang] = useState([
-    {
-      name: "Pure Centella Acne Calming Toner",
-      price: "Rp.116.000",
-      date: "1 Nov 2023",
-      image: "https://i.ibb.co/z8M19Z0/toner.png",
-    },
-    {
-      name: "Skintific Ceramide",
-      price: "Rp.115.000",
-      date: "14 Nov 2023",
-      image: "https://i.ibb.co/MVgsZsp/gambar-produk.png",
-    },
-  ]);
+  const [dataBarang, setDataBarang] = useState([]);
+
+  useEffect(() => {
+    fetchData(); // Mengambil data transaksi saat komponen di-mount
+  }, []);
+
+  const fetchData = async () => {
+    try {
+      const response = await fetch(`http://127.0.0.1:8000/transaksibelum/${userId}`);
+      console.log("Response status:", response.status); // Log HTTP status
+  
+      const data = await response.json();
+      console.log("Fetched data:", data); // Log fetched data
+  
+      setDataBarang(data);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+
+  const findProductById = (productId) => {
+    return dataBarang.produk.find((product) => product.id === productId);
+  };
 
   return (
     <View style={{ flex: 1, backgroundColor: "#FFFFFF" }}>
@@ -73,10 +86,12 @@ function StatusPembayaran({ navigation }) {
       <View style={{ flex: 1 }}>
         <FlatList
           /*yg list riwayat pesanan*/
-          data={dataBarang}
+          data={dataBarang.transactions}
           showsVerticalScrollIndicator={false}
           style={{ fontSize: 1 }}
-          renderItem={({ item }) => (
+          renderItem={({ item }) => {
+            const product = findProductById(item.produk_id);
+            return (
             <TouchableOpacity
               style={{
                 backgroundColor: "#FFFFFF",
@@ -96,13 +111,13 @@ function StatusPembayaran({ navigation }) {
                   resizeMode: "cover",
                   marginRight: 10, // Jarak antara gambar dan teks
                 }}
-                source={{ uri: item.image }}
+                source={{ uri: product ? product.gambar : defaultImage }}
               />
               <View style={{ flex: 1 }}>
                 <Text
                   style={{ color: "#212121", fontFamily: "Poppins", fontSize: 14, fontWeight: "bold" }}
                 >
-                  {item.name}
+                  {product ? product.name : "Product not found"}
                 </Text>
                 <Text
                   style={{
@@ -112,18 +127,26 @@ function StatusPembayaran({ navigation }) {
                     fontWeight: "normal",
                   }}
                 >
-                  {item.date}
+                  jumlah pesanan : {item.total_pesanan}
                 </Text>
               </View>
               <View style={{ flex: 1, alignItems: "flex-end" }}>
                 <Text
                   style={{ color: "#04B4A2", fontFamily: "Poppins", fontSize: 18, fontWeight: "bold" }}
                 >
-                  {item.price}
+                  Rp. {item.total_harga}
+                </Text>
+                <Text
+                  style={{ color: "#04B4A2", fontFamily: "Poppins", fontSize: 12, fontWeight: "medium" }}
+                >
+                  validasi admin: {item.status}
                 </Text>
               </View>
+             
             </TouchableOpacity>
-          )}
+            
+            );
+          }}
         />
       </View>
     </View>

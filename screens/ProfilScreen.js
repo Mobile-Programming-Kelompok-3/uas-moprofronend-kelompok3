@@ -90,7 +90,7 @@ function ProfileScreen({ navigation , userId }) {
       </TouchableOpacity>
       <TouchableOpacity
         style={styles.cardButton}
-        onPress={() => navigation.navigate("Status Pembayaran")}
+        onPress={() => navigation.navigate("Status Pembayaran", { userId: userId })}
       >
         <Text style={styles.buttonText}>Status Pembayaran</Text>
         <svg
