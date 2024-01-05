@@ -20,7 +20,7 @@ function KeranjangScreen({navigation}) {
         style={styles.pesanButton}
         onPress={() => navigation.navigate('Pesan Sekarang', { item, quantity: 3 })}
       >
-        <Text style={{ color: 'white', fontWeight: 'bold' }}>Pesan Sekarang</Text>
+        <Text style={{ color: "#43398F", fontSize: 15, fontWeight: 'bold' }}>Pesan Sekarang</Text>
       </TouchableOpacity>
     </View>
     );
@@ -31,11 +31,12 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'space-between',
+    backgroundColor: '#F3DDE0',
   },
   pesanButton: {
-    backgroundColor: '#04B4A2',
+    backgroundColor: "yellow",
     borderRadius: 10,
-    padding: 10,
+    padding: 15,
     alignItems: 'center',
     justifyContent: 'center',
     margin: 16,

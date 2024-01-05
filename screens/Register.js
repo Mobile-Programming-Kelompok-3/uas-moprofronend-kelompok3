@@ -47,10 +47,14 @@ const Register = ({ navigation }) => {
     >
       <View style={styles.overlay}>
       <Image
-          source={require('../assets/Logo Dlillah.png')}
+          source={require('../assets/logo.png')}
           style={styles.logo}
         />
-        <Text style={styles.title}>Registrasi</Text> {/* Match title style */}
+        <Image
+            source={require('../assets/logokeranjang.png')}
+            style={styles.logokeranjang}
+          /> 
+        
         {/* Use the same TextInput style as Login */}
         <TextInput
           style={[styles.input, { borderRadius: 10 }]}
@@ -98,10 +102,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   logo: {
-    width: 250,
-    height: 100,
-    marginBottom: 16,
-    resizeMode: 'contain',
+    width: 150,
+    height: 50,
+    resizeMode: 'contain', 
   },
   title: {
     fontSize: 24,
@@ -112,29 +115,33 @@ const styles = StyleSheet.create({
   input: {
     width: '100%',
     height: 40,
-    borderColor: 'gray',
-    borderWidth: 1,
-    marginBottom: 16,
+    borderColor: '#4A4093',
+    borderWidth: 2,
+    marginTop: 10,
+    marginBottom: 8,
     padding: 8,
-    borderRadius: 10,
-    backgroundColor: 'white',
   },
   button: {
-    backgroundColor: 'white',
+    marginTop: 16,
+    backgroundColor: '#4A4093',
     padding: 10,
-    borderRadius: 5,
     marginBottom: 15,
+    borderRadius: 10,
   },
   buttonText: {
-    color: '#04B4A2',
+    color: 'white',
     fontSize: 16,
-    fontWeight: 'bold',
     textAlign: 'center',
   },
   registerText: {
-    color: '#04B4A2', // Match color to Login component
+    color: '#4A4093', // Match color to Login component
     marginTop: 16,
     textDecorationLine: 'underline',
+  },
+  logokeranjang: {
+    width: 250,
+    height: 220,
+    resizeMode: 'contain',
   },
 });
 

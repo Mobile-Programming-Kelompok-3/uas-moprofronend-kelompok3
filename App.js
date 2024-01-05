@@ -7,6 +7,7 @@ import KeranjangScreen from "./screens/KeranjangScreen";
 import RiwayatPesan from "./screens/RiwayatPesan";
 import RiwayatPesanSudahBayar from "./screens/RiwayatPesanSudahBayar";
 import ProductDetail from "./components/ProductDetail";
+import PilihPembayaran from "./components/PilihPembayaran";
 import Navigation from "./components/Navigation";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
@@ -14,6 +15,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import StatusPembayaran from "./screens/StatusPembayaran";
 import AboutStoreScreen from "./screens/AboutStoreScreen";
 import EditProfileScreen from "./screens/EditProfileScreen";
+import HasilTransaksi from "./screens/HasilTransaksi";
 import PesanSekarang from "./components/PesanSekarang";
 import StatusPembayaranSelesai from "./screens/StatusPembayaranSelesai";
 import Login from "./screens/Login";
@@ -87,8 +89,15 @@ function MenuStack({ userId }) {
       <Stack.Screen name="Pesan Sekarang">
         {(props) => <PesanSekarang {...props} userId={userId} />}
       </Stack.Screen>
+      <Stack.Screen name="Pilih Pembayaran">
+        {(props) => <PilihPembayaran {...props} userId={userId} />}
+      </Stack.Screen>
       <Stack.Screen name="FAQ" component={FAQList} />
+      <Stack.Screen name="Hasil Transaksi">
+        {(props) => <HasilTransaksi {...props} userId={userId} />}
+      </Stack.Screen>
     </Stack.Navigator>
+    
   );
 }
 
@@ -121,7 +130,7 @@ function App() {
               }
 
               // You can return any component here as the tab icon
-              return <Ionicons name={iconName} size={size} color="#04B4A2" />;
+              return <Ionicons name={iconName} size={size} color="purple" />;
             },
             tabBarLabel: () => null, // Hide the label
           })}

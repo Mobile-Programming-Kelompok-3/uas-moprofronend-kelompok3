@@ -33,10 +33,8 @@ function ProfileScreen({ navigation , userId }) {
   return (
     <View style={styles.container}>
       <View style={styles.userInfoContainer}>
-      <Image source={
-          userProfile?.user?.gambar
-            ? { uri: userProfile.user.gambar }
-            : DefaultProfileImage
+      <Image source={require('../assets/inun.jpg')
+          
         } style={styles.profileImage} />
             <View style={styles.userInfo}>
               <Text style={styles.username}>{userProfile ? userProfile.user.name : "Loading..."}</Text>
@@ -146,7 +144,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "start",
     paddingHorizontal: 20,
-    backgroundColor: "#FFFFFF",
+    backgroundColor: "#F3DDE0S",
   },
   userInfoContainer: {
     flexDirection: "row",
@@ -163,12 +161,12 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   username: {
-    fontFamily: 'Poppins',
+    // fontFamily: 'Poppins',
     fontSize: 24,
     fontWeight: "700",
   },
   email: {
-    fontFamily: 'Poppins',
+    // fontFamily: 'Poppins',
     fontSize: 18,
     color: "gray",
   },
@@ -176,7 +174,7 @@ const styles = StyleSheet.create({
     flexDirection: "row", // Membuat konten sejajar (horizontal)
     alignItems: "center", // Mengatur konten secara vertikal
     justifyContent: "space-between", // Menengahkan konten secara horizontal
-    backgroundColor: "#FFFFFF",
+    backgroundColor: "#43398F",
     paddingVertical: 20,
     paddingHorizontal: 20,
     borderRadius: 10,
@@ -192,7 +190,7 @@ const styles = StyleSheet.create({
     flexDirection: "row", // Membuat konten sejajar (horizontal)
     alignItems: "center", // Mengatur konten secara vertikal
     justifyContent: "center", // Menengahkan konten secara horizontal
-    backgroundColor: "#04B4A2",
+    backgroundColor: "yellow",
     paddingVertical: 15,
     paddingHorizontal: 20,
     borderRadius: 10,
@@ -207,18 +205,19 @@ const styles = StyleSheet.create({
     width: 20, // Sesuaikan dengan ukuran yang diinginkan
     height: 20, // Sesuaikan dengan ukuran yang diinginkan
     marginRight: 10, // Jarak antara gambar dan teks
+    color: "white",
+    weight: 'bold',
   },
   buttonText: {
-    fontFamily: 'Poppins',
-    color: "black",
-    fontSize: 18,
-    fontWeight: "500",
-  },
-  logoutText: {
-    fontFamily: 'Poppins',
+    // fontFamily: 'Poppins',
     color: "white",
     fontSize: 18,
-    fontWeight: "500",
+    fontWeight: 'bold',
+  },
+  logoutText: {
+    color: "43398F",
+    fontSize: 18,
+    fontWeight: 'bold',
   },
 });
 

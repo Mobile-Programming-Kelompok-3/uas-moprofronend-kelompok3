@@ -3,6 +3,7 @@ import React from 'react'
 import Header from '../components/Header'
 //import SearchBar from '../components/SearchBar'
 import MenuCard from '../components/MenuCard'
+import Carousel from '../components/Carrousel'
 
 
 const Homescreen = () => {
@@ -10,6 +11,7 @@ const Homescreen = () => {
   return (
     <ScrollView showsVerticalScrollIndicator={false}>
       <Header/>
+      <Carousel/>
       <MenuCard/>
     </ScrollView>
   )

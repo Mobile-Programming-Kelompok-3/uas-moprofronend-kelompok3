@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import {
   FlatList,
   View,
@@ -40,7 +40,23 @@ const MenuCard = () => {
     setFilteredMenu(filteredItems);
   }, [searchQuery]);
 
+  const handleTikTokPress = () => {
+    // Open the TikTok URL when the TikTok logo is pressed
+    Linking.openURL('https://www.tiktok.com');
+  };
+
+  const handleInstagramPress = () => {
+    // Open the Instagram URL when the Instagram logo is pressed
+    Linking.openURL('https://www.instagram.com');
+  };
+
+  const handleYouTubePress = () => {
+    // Open the YouTube URL when the YouTube logo is pressed
+    Linking.openURL('https://www.youtube.com');
+  };
+
   return (
+    <View style={styles.container}>
     <View>
       {/* Search Bar */}
       <TextInput
@@ -51,23 +67,19 @@ const MenuCard = () => {
           borderRadius: 8,
           margin: 10,
           paddingLeft: 10,
-          fontFamily: "Poppins",
         }}
-        placeholder="Search..."
+        placeholder="Sakura Jeans"
         onChangeText={(text) => setSearchQuery(text)}
         value={searchQuery}
       />
+      <View style={styles.centeredContainer}>
+        <Image
+          source={require('../assets/NewProduk.png')} // Specify the correct path
+          style={styles.newProdukImage}
+        />
+      </View>
 
-      <Text
-        style={{
-          fontFamily: "Poppins",
-          marginLeft: 25,
-          marginTop: 10,
-          fontWeight: "bold",
-        }}
-      >
-        Makanan
-      </Text>
+ 
       <FlatList
         data={filteredMenu}
         renderItem={({ item }) => (
@@ -99,15 +111,16 @@ const MenuCard = () => {
                   resizeMode: "cover",
                 }}
               />
-              <Text style={{ paddingLeft: 10, fontFamily: "Poppins" }}>
+              <Text style={{ paddingLeft: 10, color: '#4A4093', fontWeight: 'bold', fontSize: 18, }}>
                 {item.name}
               </Text>
               {/* Adjusted the text style for price */}
               <Text
                 style={{
                   paddingLeft: 10,
-                  color: "#04B4A2",
-                  fontFamily: "Poppins",
+                  color: '#4A4093',
+                  // textDecorationLine: 'line-through',
+                  fontSize: 15,
                 }}
               >
                 Rp. {item.harga}
@@ -121,7 +134,7 @@ const MenuCard = () => {
                   position: "absolute",
                   bottom: 5,
                   right: 8,
-                  backgroundColor: "#04B4A2", // Changed the button color
+                  backgroundColor: "white", // Changed the button color
                   borderRadius: 100,
                   padding: 5,
                 }}
@@ -149,8 +162,148 @@ const MenuCard = () => {
         }}
         showsVerticalScrollIndicator={false}
       />
+
+<View style={styles.subscribeContainer}>
+        <View style={styles.subscribeContent}>
+          <Text style={styles.subscribeTitle}>NEWSLETTER</Text>
+          <Text style={styles.subscribeDescription}>
+            Berlangganan untuk menerima informasi penawaran eksklusif, voucher, dan lebih banyak lagi.
+          </Text>
+          <View style={styles.emailInputContainer}>
+            <TextInput
+              placeholder="Masukkan Email"
+              placeholderTextColor="#999"
+              style={styles.emailInput}
+            />
+            <TouchableOpacity style={styles.subscribeButton}>
+              <Text style={styles.subscribeButtonText}>Berlangganan</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </View>
+      <View style={styles.socialMediaContainer}>
+      <TouchableOpacity onPress={handleTikTokPress}>
+          <Image
+            source={require('../assets/tiktok.png')}
+            style={styles.socialMediaLogo}
+          />
+        </TouchableOpacity>
+
+        <TouchableOpacity onPress={handleInstagramPress}>
+          <Image
+            source={require('../assets/instagram.png')}
+            style={styles.socialMediaLogo}
+          />
+        </TouchableOpacity>
+        <TouchableOpacity onPress={handleYouTubePress}>
+          <Image
+            source={require('../assets/youtube.png')}
+            style={styles.socialMediaLogo}
+          />
+        </TouchableOpacity>
+      </View>
+     
+
+
+    </View>
     </View>
   );
 };
+
+const styles = {
+  container: {
+    flex: 1,
+    backgroundColor: '#F3DDE0',
+  },
+  centeredContainer: {
+    alignItems: 'center',
+    margin: 0,
+  },
+  newProdukImage: {
+    margin: 0,
+    width: 150, // Set the width of the image as needed
+    height: 120, // Set the height of the image as needed
+    resizeMode: 'contain', // Adjust the resizeMode as needed
+  },
+  socialMediaContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    alignItems: 'center', // Center the logos vertically
+    marginVertical: 10, // Adjust the vertical margin as needed
+  },
+  socialMediaLogo: {
+    width: 40,
+    height: 40,
+    marginHorizontal: 0, // Adjust the horizontal margin as needed
+  },
+  Newsletter: {
+    marginHorizontal:20,
+    backgroundColor: '#4A4093',
+    borderRadius: 20,
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    alignItems: 'center', // Center the content horizontally
+    marginVertical: 10,
+    paddingVertical: 10, // Add padding to vertically center the text
+  },subscribeContainer: {
+    backgroundColor: '#43398F',
+    paddingHorizontal: 20,
+    paddingVertical: 15,
+  },
+  subscribeContent: {
+    alignItems: 'center',
+  },
+  subscribeTitle: {
+    color: 'white',
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginBottom: 10,
+  },
+  subscribeDescription: {
+    color: '#ddd',
+    textAlign: 'center',
+    marginBottom: 15,
+  },
+  emailInputContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: 'white',
+    borderRadius: 5,
+    paddingHorizontal: 10,
+    marginBottom: 10,
+  },
+  emailInput: {
+    flex: 1,
+    paddingVertical: 8,
+  },
+  subscribeButton: {
+    backgroundColor: '#FF4136',
+    paddingHorizontal: 15,
+    paddingVertical: 8,
+    borderRadius: 5,
+  },
+  subscribeButtonText: {
+    color: 'white',
+    fontWeight: 'bold',
+  },
+  
+  // Update the styles for the text components inside the 'Newsletter' section
+  newsletterText: {
+    
+    color: '#FFFFFF',
+    fontWeight: 'semibold',
+    fontSize: 18,
+    textAlign: 'center', // Center the text horizontally
+  },
+
+  newsletterDeskription: {
+    color: '#FFFFFF',
+    marginHorizontal: 30,
+    fontWeight: 'semibold',
+    fontSize: 18,
+    textAlign: 'center', // Center the text horizontally
+  },
+};
+
 
 export default MenuCard;

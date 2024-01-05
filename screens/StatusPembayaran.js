@@ -60,7 +60,7 @@ function StatusPembayaran({ navigation, userId }) {
         <TouchableOpacity
           style={{
             flex: 1,
-            backgroundColor: "#04B4A2",
+            backgroundColor: "#4A4093",
             elevation: 3,
             paddingVertical: 20,
           }}
@@ -74,12 +74,12 @@ function StatusPembayaran({ navigation, userId }) {
           onPress={() => navigation.navigate("Status Pembayaran Selesai")}
           style={{
             flex: 1,
-            backgroundColor: "#FFFFFF",
+            backgroundColor: "#4A4093",
             elevation: 3,
             paddingVertical: 20,
           }}
         >
-          <Text style={{ color: "#000000", fontFamily: "Poppins", textAlign: "center" }}>Selesai</Text>
+          <Text style={{ color: "#FFFFFF", textAlign: "center" }}>Selesai</Text>
         </TouchableOpacity>
       </View>
 
@@ -132,13 +132,11 @@ function StatusPembayaran({ navigation, userId }) {
               </View>
               <View style={{ flex: 1, alignItems: "flex-end" }}>
                 <Text
-                  style={{ color: "#04B4A2", fontFamily: "Poppins", fontSize: 18, fontWeight: "bold" }}
+                  style={{ color: "#4A4093", fontFamily: "Poppins", fontSize: 18, fontWeight: "bold" }}
                 >
                   Rp. {item.total_harga}
                 </Text>
-                <Text
-                  style={{ color: "#04B4A2", fontFamily: "Poppins", fontSize: 12, fontWeight: "medium" }}
-                >
+                <Text style={{ color: "#FFFFFF", textAlign: "center", }}>
                   validasi admin: {item.status}
                 </Text>
               </View>

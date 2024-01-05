@@ -6,7 +6,7 @@ const SearchBar = () => {
   return (
     <View style={styles.SearchFilter}>
         <Icon name="search" size={20} color= 'grey'/>
-        <Text style={styles.SearchText}>SearchBar</Text>
+        <Text style={styles.SearchText}>Sakura</Text>
     </View>
   )
 }

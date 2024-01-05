@@ -46,10 +46,13 @@ const Login = ({ navigation, setIsLoggedIn, setUserId  }) => {
     >
       <View style={styles.overlay}>
         <Image
-          source={require('../assets/Logo Dlillah.png')}
+          source={require('../assets/logo.png')}
           style={styles.logo}
         />
-        <Text style={styles.title}>Login</Text>
+        <Image
+            source={require('../assets/logokeranjang.png')}
+            style={styles.logokeranjang}
+          />
         <TextInput
           style={[styles.input, { borderRadius: 10 }]}
           placeholder="Email"
@@ -87,10 +90,9 @@ const styles = StyleSheet.create({
     alignItems: 'center', // Agar kontennya berada di tengah secara horizontal
   },
   logo: {
-    width: 250,
-    height: 100,
-    marginBottom: 10,
-    resizeMode: 'contain', // Menggunakan 'contain' agar gambar tetap proporsional di dalam kotak
+    width: 150,
+    height: 50,
+    resizeMode: 'contain', 
   },
   title: {
     fontSize: 24,
@@ -101,29 +103,33 @@ const styles = StyleSheet.create({
   input: {
     width: '100%',
     height: 40,
-    borderColor: 'gray',
-    borderWidth: 1,
-    marginBottom: 16,
+    borderColor: '#4A4093',
+    borderWidth: 2,
+    marginTop: 10,
+    marginBottom: 8,
     padding: 8,
-    borderRadius: 10,
-    backgroundColor: 'white',
   },
   button: {
-    backgroundColor: 'white',
+    marginTop: 16,
+    backgroundColor: '#4A4093',
     padding: 10,
     marginBottom: 15,
-    borderRadius: 5,
+    borderRadius: 10,
   },
   buttonText: {
-    color: '#04B4A2',
+    color: 'white',
     fontSize: 16,
-    fontWeight: 'bold',
     textAlign: 'center',
   },
   loginText: {
-    color: '#04B4A2', // Match color to Login component
+    color: '#4A4093', // Match color to Login component
     marginTop: 16,
     textDecorationLine: 'underline',
+  },
+  logokeranjang: {
+    width: 250,
+    height: 220,
+    resizeMode: 'contain',
   },
 });
 

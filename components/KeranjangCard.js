@@ -36,16 +36,16 @@ const KeranCard = () => {
                 paddingLeft: 20,
                 marginBottom: 10,
                 flexDirection: "row",
-                fontFamily: 'Poppins',
+                // fontFamily: 'Poppins',
               }}>{item.name}
               <br></br>
-              <Text style={{ color: '#528BF9' }}>{item.price}</Text>
+              <Text style={{ color: "#43398F" }}>{item.price}</Text>
               <br></br>
               <View style={styles.wrapperCardBottom}>
                 <TouchableOpacity style={styles.button}>
                   <Text style={{ fontWeight: '300' }}>-</Text>
                 </TouchableOpacity>
-                <Text style={{ paddingHorizontal: 12 }}>3</Text>
+                <Text style={{ paddingHorizontal: 12 }}>1</Text>
                 <TouchableOpacity style={styles.button}>
                   <Text style={styles.iconPlus}>+</Text>
                 </TouchableOpacity>
@@ -71,6 +71,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     position: 'relative',
+    backgroundColor: '#F3DDE0',
   },
   pesanButton: {
     backgroundColor: '#04B4A2',
@@ -101,11 +102,11 @@ const styles = StyleSheet.create({
     backgroundColor: '#F4F4F4',
   },
   buttonexit: {
-    borderWidth: 0.5,
-    borderRadius: 15,
+    // borderWidth: 0.5,
+    // borderRadius: 15,
     width: 15,
     height: 15,
-    alignItems: 'center',
+    alignItems: 'right',
     justifyContent: 'center',
     backgroundColor: '#F4F4F4',
     marginLeft: 110,

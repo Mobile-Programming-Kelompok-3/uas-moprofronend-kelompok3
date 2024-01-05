@@ -5,7 +5,7 @@ import 'react-datepicker/dist/react-datepicker.css';
 import * as ImagePicker from 'expo-image-picker';
 import axios from 'axios';
 
-const PesanSekarang = ({ navigation,route, userId }) => {
+const PilihPembayaran = ({ navigation,route, userId }) => {
   const { item, quantity } = route.params;
   const [recipientAddress, setRecipientAddress] = useState('');
   const [paymentProof, setPaymentProof] = useState(null); // State untuk bukti pembayaran
@@ -50,33 +50,10 @@ const PesanSekarang = ({ navigation,route, userId }) => {
     console.log(error);
   }
 };
-const handleBayar = async (imageURI) => {
-  try {
-    // Upload image terlebih dahulu ke server atau penyimpanan file (misalnya AWS S3)
-    // Setelah berhasil diunggah, dapatkan URL gambar dari server
-    const uploadedImageUrl = 'URL_GAMBAR_YANG_DIUNGGGAH'; // Ganti dengan URL gambar yang diunggah
-
-    // Kirim data transaksi ke backend
-    const response = await axios.post(`http://127.0.0.1:8000/transaksi/${userId}`, {
-      produk_id: item.id,
-      total_pesanan: quantity,
-      total_harga: totalPayment,
-      catatan: notes,
-      bukti_pembayaran: uploadedImageUrl,
-      tanggal_pemesanan: orderDate.toISOString().split("T")[0],
-      alamat_penerima: recipientAddress,
-      user_id: userId,
-      status: 0,
-    });
-
-    // Lakukan sesuatu setelah berhasil mengirim data, seperti navigasi atau tindakan lainnya
-    console.log('Data transaksi berhasil dikirim:', response.data);
-    navigation.navigate('Hasil Transaksi', 
-      response.data,
+const handleBayar = async () => {
+    navigation.navigate('Pesan Sekarang', 
+    {item, quantity}
     );
-  } catch (error) {
-    console.error('Error saat mengirim data transaksi:', error);
-  }
 };
 
 
@@ -96,47 +73,10 @@ const handleBayar = async (imageURI) => {
         <Text style={styles.totalOrder}>Total Pesanan: {quantity}</Text>
         <Text style={styles.totalOrder}>Total Harga: {totalPayment}</Text>
 
-        <Text style={styles.label}>Alamat Penerima</Text>
-        <TextInput
-          style={styles.input}
-          placeholder="Masukkan alamat penerima"
-          value={recipientAddress}
-          onChangeText={(text) => setRecipientAddress(text)}
-        />
-
-<Text style={styles.label}>Bukti Pembayaran</Text>
-        <View style={styles.imageInputContainer}>
-          {paymentProof && <Image source={{ uri: paymentProof }} style={styles.paymentProofImage} />}
-          <TouchableOpacity onPress={selectImage}>
-            <Text style={styles.selectImageButton}>Pilih Gambar</Text>
-          </TouchableOpacity>
-        </View>
-        <Text style={styles.label}>Catatan</Text>
-        <TextInput
-          style={[styles.input, { height: 100 }]}
-          placeholder="Catatan"
-          multiline
-          value={notes}
-          onChangeText={(text) => setNotes(text)}
-        />
-
-        <DatePicker
-          selected={orderDate}
-          onChange={handleDateChange}
-          placeholderText="Pilih Tanggal Pemesanan"
-          dateFormat="yyyy-MM-dd"
-          todayButton="Hari Ini"
-          style={styles.input} // Apply the input styles to the DatePicker
-          showYearDropdown
-          showMonthDropdown
-          dropdownMode="select"
-        />
-
-        {orderDate && (
-          <Text style={styles.selectedDateText}>
-            Tanggal Pemesanan: {orderDate.toISOString().split("T")[0]}
-          </Text>
-        )}
+        <Text style={styles.label}>Pembayaran</Text>
+        <Text style={styles.label}>BNI : 13887970</Text>
+        <Text style={styles.label}>Mandiri : 13887970</Text>
+        <Text style={styles.label}>BRI : 13887970</Text>
 
 <TouchableOpacity style={styles.bayarButton} onPress={handleBayar}>
           <Text style={styles.bayarButtonText}>Bayar: {totalPayment}</Text>
@@ -209,4 +149,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default PesanSekarang;
+export default PilihPembayaran;

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, Image, StyleSheet, ScrollView, TouchableOpacity, Linking } from 'react-native';
+import { Image, Linking, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 function AboutStoreScreen() {
@@ -42,10 +42,10 @@ function AboutStoreScreen() {
       default:
         return false;
     }
-  };  
+  };
 
   const openGoogleMaps = () => {
-    const address = 'Jalan Toko No. 123, Kota Anda, 12345'; // Ganti dengan alamat toko sesuai kebutuhan
+    const address = 'Kamayangan Residence Blok D4, No 3'; // Ganti dengan alamat toko sesuai kebutuhan
     const url = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(address)}`;
     Linking.openURL(url);
   };
@@ -54,7 +54,7 @@ function AboutStoreScreen() {
     <ScrollView style={styles.container}>
       {/* Logo Toko */}
       <Image
-        source={require('../assets/Logo Dlillah.png')} // Ganti dengan path yang sesuai
+        source={require('../assets/LogoApp.png')} // Ganti dengan path yang sesuai
         style={styles.logo}
       />
 
@@ -62,14 +62,14 @@ function AboutStoreScreen() {
       <TouchableOpacity onPress={() => toggleSection('description')}>
         <View style={styles.section}>
           <View style={styles.sectionHeader}>
-            <Text style={styles.sectionTitle}>D'Lillah</Text>
+            <Text style={styles.sectionTitle}>Sakura App</Text>
             <View style={styles.showMore}>
               {renderArrowIcon('description')}
             </View>
           </View>
           {showDescription && (
             <Text style={styles.description}>
-              D'lillah App merupakan aplikasi pemesanan toko bika ambon dan brownies yang menyajikan makanan ringan untuk bekal perjalanan dan oleh-oleh. Aplikasi ini menawarkan pemesanan yang efisien dan efektif bagi pengguna yang berada di lokasi yang jauh dari toko.
+              Sakura Jeans merupakan salah satu merek jeans lokal di platform e-commerce tiktok yang menjual produk berupa jeans. Sakura jeans berdiri awal tahun 2023 yang saat ini masih berjalan. Aplikasi ini menawarkan pemesanan yang fleksibel bagi penggunanya.
 
             </Text>
           )}
@@ -87,14 +87,14 @@ function AboutStoreScreen() {
           </View>
           {showFAQ && (
             <>
-              <Text style={styles.description}>1. Apakah pemesanan bisa diantar ke lokasi?</Text>
-              <Text style={styles.description}>Pesanan dapat diantar sesuai permintaan pelanggan</Text>
-              <Text style={styles.description}>2. Apakah toko buka pada hari libur nasional?</Text>
-              <Text style={styles.description}>Toko D'lillah buka setiap hari</Text>
-              <Text style={styles.description}>3. Berapa minimal pemesanan untuk snack box?</Text>
-              <Text style={styles.description}>Pemesanan snack box dapat dipesan dengan minimal total pembelian 12.000 per boxnya</Text>
-              <Text style={styles.description}>4. Kapan booking pemesanan dapat dilakukan?</Text>
-              <Text style={styles.description}>Booking pemesanan dapat dilakukan mulai dari H-1 tanggal yang diminta</Text>
+              <Text style={styles.description}>1. Apakaha saya dapat merubah pesanan setelah terkonfirmasi?</Text>
+              <Text style={styles.description}>   Mohon maaf, pesanan yang sudah dikonfirmasi tidak dapat dilakukan perubahan ataupun pembatalan. Setelah pesanan dikonfirmasi, maka produk, pembayaran, dan alamat secara otomatis dikunci oleh sistem. Oleh karenanya, kami memohon kesediaan Anda untuk mengecek kembali pesanan Anda, sebelum melanjutkan ke pembayaran</Text>
+              <Text style={styles.description}>2. Metode pembayaran apa yang disediakan?</Text>
+              <Text style={styles.description}>   Kartu credit, Virtua Account (VA) Bank Transfer, Dana, Gopay, Cash on Delivery</Text>
+              <Text style={styles.description}>3. Bagaimana saya mengembalikan produk yang cacat?</Text>
+              <Text style={styles.description}>   Kami mohon maaf  karena produk yang Anda terima dari kami adalah produk yang cacat. Silakan menghubungi Customer Support kami melalui saluran yang tersedia di bawah ini untuk melakukan penyelidikan lebih lanjut dan membantu Anda untuk proses selanjutnya.</Text>
+              <Text style={styles.description}>4. Bagaimana saya mengetahui ukuran produk?</Text>
+              <Text style={styles.description}>   Ukuran dalam tabel kami akan diukur dalam [cm], kecuali disebutkan sebaliknya. Untuk memeriksa rentang ukuran produk, cukup cari produk di aplikasi SakuaApp, lalu klik [GRAFIK UKURAN].</Text>
               {/* Tambahkan FAQ lainnya sesuai kebutuhan */}
             </>
           )}
@@ -112,7 +112,7 @@ function AboutStoreScreen() {
           </View>
           {showSchedule && (
             <>
-              <Text style={styles.description}>Buka setiap hari pukul 08.00 - 20.00</Text>
+              <Text style={styles.description}>Buka setiap hari pukul 08.00 - 16.00</Text>
               {/* Tambahkan jadwal lainnya sesuai kebutuhan */}
             </>
           )}
@@ -141,14 +141,15 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 20,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: '#F3DDE0',
   },
   logo: {
-    width: '100%',
+    width: '80%',
     height: 90,
     resizeMode: 'cover',
     borderRadius: 10,
-    marginBottom: 20,
+    marginBottom: 50,
+    marginLeft: 35,
   },
   section: {
     marginBottom: 20,
@@ -159,13 +160,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   sectionTitle: {
-    fontFamily: 'Poppins-Bold', // Use Poppins-Bold for bold
     fontSize: 20,
     fontWeight: '700',
     marginBottom: 10,
+    color: '#43398F',
   },
   description: {
-    fontFamily: 'Poppins-Regular', // Use Poppins-Regular for regular text
+    // Use Poppins-Regular for regular text
     fontSize: 16,
     lineHeight: 24,
     color: '#555555',
@@ -176,15 +177,14 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   footerButton: {
-    backgroundColor: '#04B4A2',
+    backgroundColor: '#FBFF3D',
     padding: 15,
     borderRadius: 10,
     marginTop: 20,
     alignItems: 'center',
   },
-  footerButtonText: {
-    fontFamily: 'Poppins-Bold', // Use Poppins-Bold for bold
-    color: 'white',
+  footerButtonText: { // Use Poppins-Bold for bold
+    color: '#43398F',
     fontSize: 16,
     fontWeight: 'bold',
   },

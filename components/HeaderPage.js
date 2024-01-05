@@ -12,8 +12,8 @@ function HeaderPage({ title }) {
 const styles = StyleSheet.create({
   header: {
     width: '100%',
-    height: 60,
-    backgroundColor: '#04B4A2',
+    height: 80,
+    backgroundColor: "#43398F",
     alignItems: 'center',
     justifyContent: 'center'
   },

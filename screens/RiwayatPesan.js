@@ -1,16 +1,12 @@
 import React, { useState } from "react";
 import {
-  Button,
-  View,
-  Text,
   FlatList,
-  TouchableOpacity,
-  StatusBar,
   Image,
   StyleSheet,
+  Text,
+  TouchableOpacity,
+  View
 } from "react-native";
-import Icon from "react-native-vector-icons/Ionicons";
-import HeaderPage from "../components/HeaderPage";
 
 function RiwayatPesan({ navigation }) {
   const [kategori, setKategori] = useState([
@@ -28,26 +24,26 @@ function RiwayatPesan({ navigation }) {
 
   const [dataBarang, setDataBarang] = useState([
     {
-      name: "Pure Centella Acne Calming Toner",
-      price: "Rp.116.000",
-      date: "1 Nov 2023",
-      image: "https://i.ibb.co/z8M19Z0/toner.png",
+      name: "Skinny Jeans",
+      price: "Rp.130.000",
+      date: "9 Des 2023",
+      image: require("../assets/skinny.png"),
     },
     {
-      name: "Skintific Ceramide",
-      price: "Rp.115.000",
-      date: "14 Nov 2023",
-      image: "https://i.ibb.co/MVgsZsp/gambar-produk.png",
+      name: "Cutbray Sakura",
+      price: "Rp.150.000",
+      date: "19 Des 2023",
+      image: require("../assets/cutbray.png"),
     },
   ]);
 
   return (
-    <View style={{ flex: 1, backgroundColor: "#FFFFFF" }}>
+    <View style={{ flex: 1, backgroundColor: "#F3DDE0" }}>
       <View style={{ flexDirection: "row" }}>
         <TouchableOpacity
           style={{
             flex: 1,
-            backgroundColor: "#04B4A2",
+            backgroundColor: "#43398F",
             elevation: 3,
             paddingVertical: 20,
           }}
@@ -55,7 +51,6 @@ function RiwayatPesan({ navigation }) {
           <Text
             style={{
               color: "#FFFFFF",
-              fontFamily: "Poppins",
               textAlign: "center",
             }}
           >
@@ -75,7 +70,6 @@ function RiwayatPesan({ navigation }) {
           <Text
             style={{
               color: "#000000",
-              fontFamily: "Poppins",
               textAlign: "center",
             }}
           >
@@ -97,10 +91,12 @@ function RiwayatPesan({ navigation }) {
                 elevation: 3,
                 marginBottom: 10,
                 marginVertical: 16,
+                marginHorizontal: 15,
                 paddingHorizontal: 20, // Mengurangi padding agar muat dalam layout
                 paddingVertical: 5,
                 flexDirection: "row", // Mengatur layout secara horizontal
                 alignItems: "center", // Untuk mengatur vertikal alignment
+                borderRadius: 15,
               }}
             >
               <Image
@@ -114,14 +110,13 @@ function RiwayatPesan({ navigation }) {
               />
               <View style={{ flex: 1 }}>
                 <Text
-                  style={{ color: "#212121", fontFamily: "Poppins", fontSize: 14, fontWeight: "bold" }}
+                  style={{ color: "#212121", fontSize: 14, fontWeight: "bold" }}
                 >
                   {item.name}
                 </Text>
                 <Text
                   style={{
                     color: "#212121",
-                    fontFamily: "Poppins",
                     fontSize: 14,
                     fontWeight: "normal",
                   }}
@@ -131,7 +126,7 @@ function RiwayatPesan({ navigation }) {
               </View>
               <View style={{ flex: 1, alignItems: "flex-end" }}>
                 <Text
-                  style={{ color: "#04B4A2", fontFamily: "Poppins", fontSize: 18, fontWeight: "bold" }}
+                  style={{ color: "#43398F", fontSize: 18, fontWeight: "bold" }}
                 >
                   {item.price}
                 </Text>

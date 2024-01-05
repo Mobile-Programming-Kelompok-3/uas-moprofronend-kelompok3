@@ -369,32 +369,20 @@ export const MenuList = [
 export const KeranjangList = [
     {
         id: "01",
-        name: "Senka Facial Foam",
-        price: "Rp.29.600",
-        image: require('./assets/senka.jpg'),
+        name: "Sakura Jeans | Cutbray Lightblue",
+        price: "Rp135.000",
+        image: require('./assets/Group 5.png'),
     },
     {
         id: "02",
-        name: "bonCabe Lv. 50",
-        price: "Rp.16.700",
-        image: require('./assets/Bon.jpg'),
+        name: "Sakura Jeans | Skinny Jeans Stone",
+        price: "Rp135.000",
+        image: require('./assets/Rectangle 7.png'),
     },
     {
         id: "03",
-        name: "Delisaos Hot Lava",
-        price: "Rp.15.800",
-        image: require('./assets/Saos.jpg'),
-    },
-    {
-        id: "04",
-        name: "Frisian Flag Coklat",
-        price: "Rp.20.500",
-        image: require('./assets/FF.jpg'),
-    },
-    {
-        id: "05",
-        name: "Sari Roti Cokelat",
-        price: "Rp.6.000",
-        image: require('./assets/Sr2.jpg'),
+        name: "Sakura Jeans | Loose Jeans White",
+        price: "Rp135.000",
+        image: require('./assets/jeans.jpg'),
     },
 ];
