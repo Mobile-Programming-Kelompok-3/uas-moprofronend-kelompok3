@@ -15,29 +15,27 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import StatusPembayaran from "./screens/StatusPembayaran";
 import AboutStoreScreen from "./screens/AboutStoreScreen";
 import EditProfileScreen from "./screens/EditProfileScreen";
-import HasilTransaksi from "./screens/HasilTransaksi";
 import PesanSekarang from "./components/PesanSekarang";
 import StatusPembayaranSelesai from "./screens/StatusPembayaranSelesai";
 import Login from "./screens/Login";
 import FAQList from "./components/FAQList";
 import Register from "./screens/Register";
+import HasilTransaksi from "./screens/HasilTransaksi";
+import PesanKeranjang from "./components/PesanKeranjang";
+import PilihPembayaranKeranjang from "./components/PilihPembayaranKeranjang";
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 
-function RiwayatTransaksiStack() {
+function RiwayatTransaksiStack({ userId }) {
   return (
     <Stack.Navigator>
-      <Stack.Screen
-        name="Riwayat Pesan"
-        component={RiwayatPesan}
-        options={{ headerShown: false }}
-      />
-      <Stack.Screen
-        name="Riwayat Pesan Sudah Bayar"
-        component={RiwayatPesanSudahBayar}
-        options={{ headerShown: false }}
-      />
+      <Stack.Screen name="Riwayat Pesan" options={{ headerShown: false }}>
+        {(props) => <RiwayatPesan {...props} userId={userId} />}
+      </Stack.Screen>
+      <Stack.Screen name="Riwayat Pesan Sudah Bayar" options={{ headerShown: false }}>
+        {(props) => <RiwayatPesanSudahBayar {...props} userId={userId} />}
+      </Stack.Screen>
     </Stack.Navigator>
   );
 }
@@ -48,11 +46,9 @@ function StatusPembayaranStack({ userId }) {
       <Stack.Screen name="Status Pembayaran" options={{ headerShown: false }}>
         {(props) => <StatusPembayaran {...props} userId={userId} />}
       </Stack.Screen>
-      <Stack.Screen
-        name="Status Pembayaran Selesai"
-        component={StatusPembayaranSelesai}
-        options={{ headerShown: false }}
-      />
+      <Stack.Screen name="Status Pembayaran Selesai" options={{ headerShown: false }}>
+        {(props) => <StatusPembayaranSelesai {...props} userId={userId} />}
+      </Stack.Screen>
     </Stack.Navigator>
   );
 }
@@ -63,12 +59,14 @@ function RiwayatStack({ userId }) {
       <Stack.Screen name="Profil">
         {(props) => <ProfilScreen {...props} userId={userId} />}
       </Stack.Screen>
-      <Stack.Screen
-        name="Riwayat Transaksi"
-        component={RiwayatTransaksiStack}
-      />
+      <Stack.Screen name="Riwayat Transaksi">
+        {(props) => <RiwayatTransaksiStack {...props} userId={userId} />}
+      </Stack.Screen>
       <Stack.Screen name="Status Pembayaran">
         {(props) => <StatusPembayaranStack {...props} userId={userId} />}
+      </Stack.Screen>
+      <Stack.Screen name="Hasil Transaksi">
+        {(props) => <HasilTransaksi {...props} userId={userId} />}
       </Stack.Screen>
       <Stack.Screen name="Tentang Toko" component={AboutStoreScreen} />
       <Stack.Screen name="Edit Profile" component={EditProfileScreen} />
@@ -80,31 +78,38 @@ function RiwayatStack({ userId }) {
 function MenuStack({ userId }) {
   return (
     <Stack.Navigator>
-      <Stack.Screen
-        name="Menu"
-        component={Homescreen}
-        options={{ headerShown: false }}
-      />
-      <Stack.Screen name="Product Detail" component={ProductDetail} />
+      <Stack.Screen name="Menu" options={{ headerShown: false }}>
+        {(props) => <Homescreen {...props} userId={userId} />}
+      </Stack.Screen>
+      <Stack.Screen name="Product Detail">
+        {(props) => <ProductDetail {...props} userId={userId} />}
+      </Stack.Screen>
       <Stack.Screen name="Pesan Sekarang">
         {(props) => <PesanSekarang {...props} userId={userId} />}
       </Stack.Screen>
       <Stack.Screen name="Pilih Pembayaran">
         {(props) => <PilihPembayaran {...props} userId={userId} />}
       </Stack.Screen>
-      <Stack.Screen name="FAQ" component={FAQList} />
       <Stack.Screen name="Hasil Transaksi">
         {(props) => <HasilTransaksi {...props} userId={userId} />}
       </Stack.Screen>
+      <Stack.Screen name="FAQ" component={FAQList} />
     </Stack.Navigator>
-    
   );
 }
 
-function KeranjangStack() {
+function KeranjangStack({ userId }) {
   return (
     <Stack.Navigator>
-      <Stack.Screen name="Keranjang" component={KeranjangScreen} />
+      <Stack.Screen name="Keranjang">
+        {(props) => <KeranjangScreen {...props} userId={userId} />}
+      </Stack.Screen>
+      <Stack.Screen name="Pilih Pembayaran Keranjang">
+        {(props) => <PilihPembayaranKeranjang {...props} userId={userId} />}
+      </Stack.Screen>
+      <Stack.Screen name="Pesan Keranjang">
+        {(props) => <PesanKeranjang {...props} userId={userId} />}
+      </Stack.Screen>
     </Stack.Navigator>
   );
 }
@@ -130,16 +135,20 @@ function App() {
               }
 
               // You can return any component here as the tab icon
-              return <Ionicons name={iconName} size={size} color="purple" />;
+              return <Ionicons name={iconName} size={size} color="#04B4A2" />;
             },
             tabBarLabel: () => null, // Hide the label
           })}
           initialRouteName="Home"
         >
-          <Tab.Screen name="Keranjang" component={KeranjangStack} />
           <Tab.Screen
             name="Home"
             component={() => <MenuStack userId={userId} />}
+          />
+
+          <Tab.Screen
+            name="Keranjang"
+            component={() => <KeranjangStack userId={userId} />}
           />
 
           <Tab.Screen
@@ -156,7 +165,10 @@ function App() {
           }}
           initialRouteName="Login"
         >
-          <Tab.Screen name="Login">
+          <Tab.Screen name="Login" options={{
+            headerShown: false, tabBarStyle: { display: "none" }, // Sembunyikan tab bar di halaman Login
+            tabBarShowLabel: false
+          }}>
             {(props) => (
               <Login
                 {...props}
@@ -165,7 +177,10 @@ function App() {
               />
             )}
           </Tab.Screen>
-          <Tab.Screen name="Register" component={Register} />
+          <Tab.Screen name="Register" component={Register} options={{
+            headerShown: false, tabBarStyle: { display: "none" }, // Sembunyikan tab bar di halaman Login
+            tabBarShowLabel: false
+          }} />
         </Tab.Navigator>
       );
     }

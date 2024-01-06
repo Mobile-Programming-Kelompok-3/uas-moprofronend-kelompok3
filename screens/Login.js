@@ -2,7 +2,7 @@ import axios from 'axios';
 import React, { useState } from 'react';
 import { ImageBackground, Image, View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
 
-const Login = ({ navigation, setIsLoggedIn, setUserId  }) => {
+const Login = ({ navigation, setIsLoggedIn, setUserId }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -20,13 +20,13 @@ const Login = ({ navigation, setIsLoggedIn, setUserId  }) => {
           },
         }
       );
-  
+
       console.log('Registrasi berhasil:', response.data);
       setIsLoggedIn(true);
       const userId = response.data.user.id;; // Assuming user data includes an 'id' field
 
-        // Set the user ID and set isLoggedIn to true
-        setUserId(userId);
+      // Set the user ID and set isLoggedIn to true
+      setUserId(userId);
       // Lakukan navigasi atau logika setelah registrasi berhasil
     } catch (error) {
       console.error('Registrasi gagal:', error);
@@ -50,9 +50,9 @@ const Login = ({ navigation, setIsLoggedIn, setUserId  }) => {
           style={styles.logo}
         />
         <Image
-            source={require('../assets/logokeranjang.png')}
-            style={styles.logokeranjang}
-          />
+          source={require('../assets/logokeranjang.png')}
+          style={styles.logokeranjang}
+        />
         <TextInput
           style={[styles.input, { borderRadius: 10 }]}
           placeholder="Email"
@@ -92,7 +92,7 @@ const styles = StyleSheet.create({
   logo: {
     width: 150,
     height: 50,
-    resizeMode: 'contain', 
+    resizeMode: 'contain',
   },
   title: {
     fontSize: 24,

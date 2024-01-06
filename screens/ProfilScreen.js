@@ -4,9 +4,16 @@ import HeaderPage from "../components/HeaderPage";
 import DefaultProfileImage from "../assets/ProfilImg.png";
 import axios from "axios";
 
-function ProfileScreen({ navigation , userId }) {
+function ProfileScreen({ navigation, userId }) {
   const [userProfile, setUserProfile] = useState(null);
-  
+
+  const handleLogout = () => {
+    // Hapus data pengguna dari penyimpanan lokal/state jika perlu
+
+    // Navigasi ke halaman login setelah logout berhasil
+    navigation.replace("Login");
+  };
+
   console.log(userId);
   useEffect(() => {
     // Fetch user profile data from the backend
@@ -33,13 +40,15 @@ function ProfileScreen({ navigation , userId }) {
   return (
     <View style={styles.container}>
       <View style={styles.userInfoContainer}>
-      <Image source={require('../assets/inun.jpg')
-          
+        <Image source={
+          userProfile?.user?.gambar
+            ? { uri: userProfile.user.gambar }
+            : DefaultProfileImage
         } style={styles.profileImage} />
-            <View style={styles.userInfo}>
-              <Text style={styles.username}>{userProfile ? userProfile.user.name : "Loading..."}</Text>
-              <Text style={styles.email}>{userProfile ? userProfile.user.email : "Loading..."}</Text>
-            </View>
+        <View style={styles.userInfo}>
+          <Text style={styles.username}>{userProfile ? userProfile.user.name : "Loading..."}</Text>
+          <Text style={styles.email}>{userProfile ? userProfile.user.email : "Loading..."}</Text>
+        </View>
       </View>
 
       {/* Card Button untuk Pindah Halaman */}
@@ -48,6 +57,27 @@ function ProfileScreen({ navigation , userId }) {
         onPress={() => navigation.navigate("Edit Profil", { userId: userId })}
       >
         <Text style={styles.buttonText}>Edit Profil</Text>
+        <svg
+          style={styles.buttonImage}
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke-width="1.5"
+          stroke="currentColor"
+          class="w-6 h-6"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M4.5 12h15m0 0l-6.75-6.75M19.5 12l-6.75 6.75"
+          />
+        </svg>
+      </TouchableOpacity>
+      <TouchableOpacity
+        style={styles.cardButton}
+        onPress={() => navigation.navigate("Status Pembayaran", { userId: userId })}
+      >
+        <Text style={styles.buttonText}>Status Pembayaran</Text>
         <svg
           style={styles.buttonImage}
           xmlns="http://www.w3.org/2000/svg"
@@ -88,27 +118,6 @@ function ProfileScreen({ navigation , userId }) {
       </TouchableOpacity>
       <TouchableOpacity
         style={styles.cardButton}
-        onPress={() => navigation.navigate("Status Pembayaran", { userId: userId })}
-      >
-        <Text style={styles.buttonText}>Status Pembayaran</Text>
-        <svg
-          style={styles.buttonImage}
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke-width="1.5"
-          stroke="currentColor"
-          class="w-6 h-6"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            d="M4.5 12h15m0 0l-6.75-6.75M19.5 12l-6.75 6.75"
-          />
-        </svg>
-      </TouchableOpacity>
-      <TouchableOpacity
-        style={styles.cardButton}
         onPress={() => navigation.navigate("Tentang Toko")}
       >
         <Text style={styles.buttonText}>Tentang Toko</Text>
@@ -130,7 +139,6 @@ function ProfileScreen({ navigation , userId }) {
       </TouchableOpacity>
       <TouchableOpacity
         style={styles.logoutButton}
-        onPress={() => navigation.navigate("Edit Profil")}
       >
         <Text style={styles.logoutText}>Logout</Text>
       </TouchableOpacity>

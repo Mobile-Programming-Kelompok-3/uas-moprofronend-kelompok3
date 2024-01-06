@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Button,
   View,
@@ -10,7 +10,8 @@ import {
 } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
 
-function StatusPembayaranSelesai({ navigation }) {
+
+function StatusPembayaranSelesai({ navigation, userId }) {
   const [kategori, setKategori] = useState([
     {
       keterangan: "Validasi Admin",
@@ -24,20 +25,30 @@ function StatusPembayaranSelesai({ navigation }) {
     keterangan: "Validasi Admin",
   });
 
-  const [dataBarang, setDataBarang] = useState([
-    {
-      name: "Pure Centella Acne Calming Toner",
-      price: "Rp.116.000",
-      date: "1 Nov 2023",
-      image: "https://i.ibb.co/z8M19Z0/toner.png",
-    },
-    {
-      name: "Skintific Ceramide",
-      price: "Rp.115.000",
-      date: "14 Nov 2023",
-      image: "https://i.ibb.co/MVgsZsp/gambar-produk.png",
-    },
-  ]);
+  const [dataBarang, setDataBarang] = useState([]);
+
+  useEffect(() => {
+    fetchData(); // Mengambil data transaksi saat komponen di-mount
+  }, []);
+
+  const fetchData = async () => {
+    try { 
+      const response = await fetch(`http://127.0.0.1:8000/pembayaransudah/${userId}`);
+      console.log("Response status:", response.status); // Log HTTP status
+
+      const data = await response.json();
+      console.log(userId); // Log HTTP status
+      console.log("Fetched data:", data); // Log fetched data
+
+      setDataBarang(data);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+
+  const findProductById = (productId) => {
+    return dataBarang.produk.find((product) => product.id === productId);
+  };
 
   return (
     <View style={{ flex: 1, backgroundColor: "#FFFFFF" }}>
@@ -76,57 +87,66 @@ function StatusPembayaranSelesai({ navigation }) {
       <View style={{ flex: 1 }}>
         <FlatList
           /*yg list riwayat pesanan*/
-          data={dataBarang}
+          data={dataBarang.transactions}
           showsVerticalScrollIndicator={false}
           style={{ fontSize: 1 }}
-          renderItem={({ item }) => (
-            <TouchableOpacity
-              style={{
-                backgroundColor: "#FFFFFF",
-                elevation: 3,
-                marginBottom: 10,
-                marginVertical: 16,
-                paddingHorizontal: 20, // Mengurangi padding agar muat dalam layout
-                paddingVertical: 5,
-                flexDirection: "row", // Mengatur layout secara horizontal
-                alignItems: "center", // Untuk mengatur vertikal alignment
-              }}
-            >
-              <Image
+          renderItem={({ item }) => {
+            const product = findProductById(item.produk_id);
+            return (
+              <TouchableOpacity
+                onPress={() => navigation.navigate("Hasil Transaksi", { data: item })}
                 style={{
-                  width: 50,
-                  height: 50,
-                  resizeMode: "cover",
-                  marginRight: 10, // Jarak antara gambar dan teks
+                  backgroundColor: "#FFFFFF",
+                  elevation: 3,
+                  marginBottom: 10,
+                  marginVertical: 16,
+                  paddingHorizontal: 20, // Mengurangi padding agar muat dalam layout
+                  paddingVertical: 5,
+                  flexDirection: "row", // Mengatur layout secara horizontal
+                  alignItems: "center", // Untuk mengatur vertikal alignment
                 }}
-                source={{ uri: item.image }}
-              />
-              <View style={{ flex: 1 }}>
-                <Text
-                  style={{ color: "#4A4093", fontFamily: "Poppins", fontSize: 14, fontWeight: "bold" }}
-                >
-                  {item.name}
-                </Text>
-                <Text
+              >
+                <Image
                   style={{
-                    color: "#212121",
-                    fontFamily: "Poppins",
-                    fontSize: 14,
-                    fontWeight: "normal",
+                    width: 50,
+                    height: 50,
+                    resizeMode: "cover",
+                    marginRight: 10, // Jarak antara gambar dan teks
                   }}
-                >
-                  {item.date}
-                </Text>
-              </View>
-              <View style={{ flex: 1, alignItems: "flex-end" }}>
-                <Text
-                  style={{ color: "#4A4093", fontFamily: "Poppins", fontSize: 18, fontWeight: "bold" }}
-                >
-                  {item.price}
-                </Text>
-              </View>
-            </TouchableOpacity>
-          )}
+                  source={{ uri: product ? product.gambar : defaultImage }}
+                />
+                <View style={{ flex: 1 }}>
+                  <Text
+                    style={{ color: "#4A4093", fontFamily: "Poppins", fontSize: 14, fontWeight: "bold" }}
+                  >
+                    {product ? product.name : "Product not found"}
+                  </Text>
+                  <Text
+                    style={{
+                      color: "#212121",
+                      fontFamily: "Poppins",
+                      fontSize: 14,
+                      fontWeight: "normal",
+                    }}
+                  >
+                    jumlah pesanan : {item.total_pesanan}
+                  </Text>
+                </View>
+                <View style={{ flex: 1, alignItems: "flex-end" }}>
+                  <Text
+                    style={{ color: "#4A4093", fontFamily: "Poppins", fontSize: 18, fontWeight: "bold" }}
+                  >
+                    Rp. {item.total_harga}
+                  </Text>
+                  <Text
+                    style={{ color: "#04B4A2", fontFamily: "Poppins", fontSize: 12, fontWeight: "medium" }}
+                  >
+                    validasi admin: {item.status}
+                  </Text>
+                </View>
+              </TouchableOpacity>
+            );
+          }}
         />
       </View>
     </View>

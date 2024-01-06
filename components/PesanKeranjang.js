@@ -5,32 +5,13 @@ import 'react-datepicker/dist/react-datepicker.css';
 import * as ImagePicker from 'expo-image-picker';
 import axios from 'axios';
 
-const PesanSekarang = ({ navigation, route, userId }) => {
-  const { item, quantity, voucher } = route.params;
+const PesanKeranjang = ({ navigation, route, userId }) => {
+  const { item, totalPayment } = route.params;
   const [recipientAddress, setRecipientAddress] = useState('');
   const [paymentProof, setPaymentProof] = useState(null); // State untuk bukti pembayaran
   const [notes, setNotes] = useState('');
   const [orderDate, setOrderDate] = useState('');
-
-  // Gunakan voucher untuk mengurangi total harga
-  const [voucherDiscount, setVoucherDiscount] = useState(0); // State untuk nilai diskon dari voucher
-
-  const totalPayment = item.harga * quantity;
-
-  useEffect(() => {
-    // Lakukan operasi perhitungan diskon dari voucher di sini
-    // Misalnya, diskon 10% dari totalPayment jika voucher "DISKON10"
-    // Ini hanya contoh, kamu bisa menyesuaikan dengan logika diskon yang sesuai
-    if (voucher === 'DISKON10') {
-      const discountAmount = totalPayment * 0.5; // Diskon 10%
-      setVoucherDiscount(discountAmount);
-    } else {
-      setVoucherDiscount(0); // Set nilai diskon menjadi 0 jika tidak ada voucher
-    }
-  }, [voucher, totalPayment]);
-
-  const totalPaymentAfterDiscount = totalPayment - voucherDiscount;
-
+  const [itemjumlah, setItemJumlah] = useState(0);
   useEffect(() => {
     // Fetch user profile data from the backend
     const fetchUserProfile = async () => {
@@ -47,6 +28,11 @@ const PesanSekarang = ({ navigation, route, userId }) => {
     fetchUserProfile();
   }, [userId]);
 
+  useEffect(() => {
+    const totalItems = item.keranjang.reduce((total, cartItem) => total + cartItem.jumlah, 0);
+    console.log(totalItems);
+    setItemJumlah(totalItems);
+  }, [item.keranjang]);
 
   const handleDateChange = (date) => {
     setOrderDate(date);
@@ -70,12 +56,19 @@ const PesanSekarang = ({ navigation, route, userId }) => {
       console.log(error);
     }
   };
-  const handleBayar = async (imageURI) => {
+  const extractFirstProdukId = () => {
+    if (item.keranjang.length > 0) {
+      return item.keranjang[0].produk_id; // Get the produk_id from the first item in keranjang
+    }
+    return null; // Return null if keranjang is empty
+  };
+  const handleBayar = async () => {
     try {
+      const firstProdukId = extractFirstProdukId();
       const response = await axios.post(`http://127.0.0.1:8000/transaksi/${userId}`, {
-        produk_id: item.id,
-        total_pesanan: quantity,
-        total_harga: totalPaymentAfterDiscount,
+        produk_id: firstProdukId,
+        total_pesanan: itemjumlah,
+        total_harga: totalPayment,
         catatan: notes,
         bukti_pembayaran: paymentProof,
         tanggal_pemesanan: orderDate.toISOString().split("T")[0],
@@ -84,6 +77,14 @@ const PesanSekarang = ({ navigation, route, userId }) => {
         status: 0,
       });
 
+      if (response.status === 200 || response.status === 201) {
+        await axios.delete(`http://127.0.0.1:8000/keranjangs/${userId}`);
+        console.log('Data transaksi berhasil dikirim:', response.data);
+        navigation.navigate('Hasil Transaksi', response.data);
+      } else {
+        // Handle unsuccessful post request
+        console.error('Error saat mengirim data transaksi:', response);
+      }
       // Lakukan sesuatu setelah berhasil mengirim data, seperti navigasi atau tindakan lainnya
       console.log('Data transaksi berhasil dikirim:', response.data);
       navigation.navigate('Hasil Transaksi',
@@ -93,25 +94,33 @@ const PesanSekarang = ({ navigation, route, userId }) => {
       console.error('Error saat mengirim data transaksi:', error);
     }
   };
-
+  const findProductById = (productId) => {
+    return item.produk.find((product) => product.id === productId);
+  };
 
   return (
     <ScrollView style={{ flex: 1, backgroundColor: 'white' }}>
       <View style={styles.container}>
-        <Image
-          source={{ uri: item?.gambar }}
-          style={{
-            width: "100%",
-            height: 300,
-            resizeMode: "cover",
-          }}
-        />
-        <Text style={styles.productName}>{item?.name}</Text>
-        <Text style={styles.productPrice}>Rp. {item.harga}</Text>
-        <Text style={styles.totalOrder}>Total Pesanan: {quantity}</Text>
-        <Text style={styles.totalOrder}>Total Harga: {totalPayment}</Text>
-        <Text style={styles.totalOrder}>Total Harga Setelah diskon: {totalPaymentAfterDiscount}</Text>
+        {item.keranjang.map((cartItem, index) => {
+          const product = findProductById(cartItem.produk_id); // Use cartItem to find the corresponding product
+          return (
+            <View key={index}>
+              <Image
+                source={{ uri: product?.gambar }}
+                style={{
+                  width: "100%",
+                  height: 300,
+                  resizeMode: "cover",
+                }}
+              />
+              <Text style={styles.productName}>{product?.name}</Text>
+              <Text style={styles.productPrice}>Rp. {product?.harga}</Text>
+              <Text style={styles.totalOrder}>Total Pesanan: {cartItem?.jumlah}</Text>
 
+            </View>
+          );
+        })}
+        <Text style={styles.totalOrder}>Total Harga: {totalPayment}</Text>
         <Text style={styles.label}>Alamat Penerima</Text>
         <TextInput
           style={styles.input}
@@ -119,7 +128,6 @@ const PesanSekarang = ({ navigation, route, userId }) => {
           value={recipientAddress}
           onChangeText={(text) => setRecipientAddress(text)}
         />
-
         <Text style={styles.label}>Bukti Pembayaran</Text>
         <View style={styles.imageInputContainer}>
           {paymentProof && <Image source={{ uri: paymentProof }} style={styles.paymentProofImage} />}
@@ -155,7 +163,7 @@ const PesanSekarang = ({ navigation, route, userId }) => {
         )}
 
         <TouchableOpacity style={styles.bayarButton} onPress={handleBayar}>
-          <Text style={styles.bayarButtonText}>Bayar: {totalPaymentAfterDiscount}</Text>
+          <Text style={styles.bayarButtonText}>Bayar: {totalPayment}</Text>
         </TouchableOpacity>
       </View>
     </ScrollView>
@@ -193,7 +201,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   bayarButton: {
-    backgroundColor: "#43398F",
+    backgroundColor: "#04B4A2",
     paddingVertical: 15,
     borderRadius: 10,
     alignItems: "center",
@@ -225,4 +233,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default PesanSekarang;
+export default PesanKeranjang;

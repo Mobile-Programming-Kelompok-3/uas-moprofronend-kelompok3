@@ -12,8 +12,8 @@ import {
 
 
 function StatusPembayaran({ navigation, userId }) {
-  
-  
+
+
   const [kategori, setKategori] = useState([
     {
       keterangan: "Validasi Admin",
@@ -36,12 +36,12 @@ function StatusPembayaran({ navigation, userId }) {
 
   const fetchData = async () => {
     try {
-      const response = await fetch(`http://127.0.0.1:8000/transaksibelum/${userId}`);
+      const response = await fetch(`http://127.0.0.1:8000/pembayaranbelum/${userId}`);
       console.log("Response status:", response.status); // Log HTTP status
-  
+
       const data = await response.json();
       console.log("Fetched data:", data); // Log fetched data
-  
+
       setDataBarang(data);
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -54,7 +54,7 @@ function StatusPembayaran({ navigation, userId }) {
 
   return (
     <View style={{ flex: 1, backgroundColor: "#FFFFFF" }}>
-      
+
       <View style={{ flexDirection: "row" }}>
 
         <TouchableOpacity
@@ -92,57 +92,57 @@ function StatusPembayaran({ navigation, userId }) {
           renderItem={({ item }) => {
             const product = findProductById(item.produk_id);
             return (
-            <TouchableOpacity
-              style={{
-                backgroundColor: "#FFFFFF",
-                elevation: 3,
-                marginBottom: 10,
-                marginVertical: 16,
-                paddingHorizontal: 20, // Mengurangi padding agar muat dalam layout
-                paddingVertical: 5,
-                flexDirection: "row", // Mengatur layout secara horizontal
-                alignItems: "center", // Untuk mengatur vertikal alignment
-              }}
-            >
-              <Image
+              <TouchableOpacity
                 style={{
-                  width: 50,
-                  height: 50,
-                  resizeMode: "cover",
-                  marginRight: 10, // Jarak antara gambar dan teks
+                  backgroundColor: "#FFFFFF",
+                  elevation: 3,
+                  marginBottom: 10,
+                  marginVertical: 16,
+                  paddingHorizontal: 20, // Mengurangi padding agar muat dalam layout
+                  paddingVertical: 5,
+                  flexDirection: "row", // Mengatur layout secara horizontal
+                  alignItems: "center", // Untuk mengatur vertikal alignment
                 }}
-                source={{ uri: product ? product.gambar : defaultImage }}
-              />
-              <View style={{ flex: 1 }}>
-                <Text
-                  style={{ color: "#212121", fontFamily: "Poppins", fontSize: 14, fontWeight: "bold" }}
-                >
-                  {product ? product.name : "Product not found"}
-                </Text>
-                <Text
+              >
+                <Image
                   style={{
-                    color: "#212121",
-                    fontFamily: "Poppins",
-                    fontSize: 14,
-                    fontWeight: "normal",
+                    width: 50,
+                    height: 50,
+                    resizeMode: "cover",
+                    marginRight: 10, // Jarak antara gambar dan teks
                   }}
-                >
-                  jumlah pesanan : {item.total_pesanan}
-                </Text>
-              </View>
-              <View style={{ flex: 1, alignItems: "flex-end" }}>
-                <Text
-                  style={{ color: "#4A4093", fontFamily: "Poppins", fontSize: 18, fontWeight: "bold" }}
-                >
-                  Rp. {item.total_harga}
-                </Text>
-                <Text style={{ color: "#FFFFFF", textAlign: "center", }}>
-                  validasi admin: {item.status}
-                </Text>
-              </View>
-             
-            </TouchableOpacity>
-            
+                  source={{ uri: product ? product.gambar : defaultImage }}
+                />
+                <View style={{ flex: 1 }}>
+                  <Text
+                    style={{ color: "#212121", fontFamily: "Poppins", fontSize: 14, fontWeight: "bold" }}
+                  >
+                    {product ? product.name : "Product not found"}
+                  </Text>
+                  <Text
+                    style={{
+                      color: "#212121",
+                      fontFamily: "Poppins",
+                      fontSize: 14,
+                      fontWeight: "normal",
+                    }}
+                  >
+                    jumlah pesanan : {item.total_pesanan}
+                  </Text>
+                </View>
+                <View style={{ flex: 1, alignItems: "flex-end" }}>
+                  <Text
+                    style={{ color: "#4A4093", fontFamily: "Poppins", fontSize: 18, fontWeight: "bold" }}
+                  >
+                    Rp. {item.total_harga}
+                  </Text>
+                  <Text style={{ color: "#FFFFFF", textAlign: "center", }}>
+                    validasi admin: {item.status}
+                  </Text>
+                </View>
+
+              </TouchableOpacity>
+
             );
           }}
         />
