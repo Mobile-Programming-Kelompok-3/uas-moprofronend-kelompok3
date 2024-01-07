@@ -32,7 +32,7 @@ function StatusPembayaranSelesai({ navigation, userId }) {
   }, []);
 
   const fetchData = async () => {
-    try { 
+    try {
       const response = await fetch(`http://127.0.0.1:8000/pembayaransudah/${userId}`);
       console.log("Response status:", response.status); // Log HTTP status
 
@@ -62,12 +62,11 @@ function StatusPembayaranSelesai({ navigation, userId }) {
           onPress={() => navigation.navigate("Status Pembayaran")}
           style={{
             flex: 1,
-            backgroundColor: "#4A4093",
             elevation: 3,
             paddingVertical: 20,
           }}
         >
-          <Text style={{ color: "#FFFFFF", fontFamily: "Poppins", textAlign: "center" }}>
+          <Text style={{ color: "#4A4093", fontFamily: "Poppins", textAlign: "center" }}>
             Validasi Admin
           </Text>
         </TouchableOpacity>

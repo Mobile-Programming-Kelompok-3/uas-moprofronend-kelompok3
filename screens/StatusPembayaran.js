@@ -74,12 +74,11 @@ function StatusPembayaran({ navigation, userId }) {
           onPress={() => navigation.navigate("Status Pembayaran Selesai")}
           style={{
             flex: 1,
-            backgroundColor: "#4A4093",
             elevation: 3,
             paddingVertical: 20,
           }}
         >
-          <Text style={{ color: "#FFFFFF", textAlign: "center" }}>Selesai</Text>
+          <Text style={{ color: "#4A4093", fontFamily: "Poppins", textAlign: "center" }}>Selesai</Text>
         </TouchableOpacity>
       </View>
 

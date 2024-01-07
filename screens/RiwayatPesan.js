@@ -111,7 +111,7 @@ function RiwayatPesan({ navigation, userId }) {
               textAlign: "center",
             }}
           >
-            Sudah Diproses
+            Sudah Diterima
           </Text>
         </TouchableOpacity>
       </View>
@@ -179,7 +179,7 @@ function RiwayatPesan({ navigation, userId }) {
                   <TouchableOpacity
                     onPress={() => handleselesai(item.id)}
                     style={{
-                      backgroundColor: "#04B4A2",
+                      backgroundColor: "#43398F",
                       elevation: 3,
                       padding: 2,
                       margin: 20,

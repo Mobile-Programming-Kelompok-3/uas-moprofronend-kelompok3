@@ -29,7 +29,7 @@ const Header = ({ setSearchQuery }) => {
   return (
     <ImageBackground
       style={styles.imageBackground}
-      
+
     >
       <View style={styles.headerContainer}>
         {/* Replace text with image */}

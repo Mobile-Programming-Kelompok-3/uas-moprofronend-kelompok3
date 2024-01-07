@@ -16,7 +16,7 @@ const HasilTransaksi = ({ route, navigation }) => {
         console.error('Error fetching product:', error);
       }
     };
-  
+
     fetchProductById(data.produk_id);
   }, [data.produk_id]);
 
@@ -32,9 +32,9 @@ const HasilTransaksi = ({ route, navigation }) => {
       <View style={styles.productList}>
         <Text style={styles.productTitle}>Pembelian Produk:</Text>
         <View style={styles.productItem}>
-          <Text>{productName}</Text>
-          <Text>jumlah: {data.total_pesanan}</Text>
-          <Text>tanggal pemesanan: {data.tanggal_pemesanan}</Text>
+          <Text style={styles.productItem}>{productName}</Text>
+          <Text style={styles.productItem}>jumlah: {data.total_pesanan}</Text>
+          <Text style={styles.productItem}>tanggal pemesanan: {data.tanggal_pemesanan}</Text>
         </View>
       </View>
 
@@ -51,37 +51,48 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 20,
-    backgroundColor: '#fff',
+    backgroundColor: '#F3DDE0',
   },
   title: {
     fontSize: 24,
     fontWeight: 'bold',
-    marginBottom: 10,
+    color: '#4A4093',
+    margin: 16,
+    marginTop: 20,
   },
   subtitle: {
-    fontSize: 18,
-    marginBottom: 20,
+    fontSize: 20,
+    fontWeight: '600',
+    color: '#4A4093',
+    margin: 16,
+    marginTop: 5,
   },
   productList: {
     marginBottom: 20,
   },
   productTitle: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    marginBottom: 10,
-  },
-  productItem: {
-    borderBottomWidth: 1,
-    borderBottomColor: '#ccc',
-    paddingBottom: 10,
-    marginBottom: 10,
-  },
-  total: {
     fontSize: 18,
     fontWeight: 'bold',
+    color: '#4A4093',
+    margin: 16,
+    marginTop: 20,
+  },
+  productItem: {
+    fontSize: 14,
+    fontWeight: 'bold',
+    color: '#4A4093',
+    marginLeft: 10,
+    marginTop: 3,
+  },
+  total: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: '#4A4093',
+    margin: 16,
+    marginTop: 20,
   },
   button: {
-    backgroundColor: '#528BF9',
+    backgroundColor: '#4A4093',
     padding: 15,
     borderRadius: 10,
     marginTop: 20,

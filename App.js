@@ -29,7 +29,7 @@ const Stack = createNativeStackNavigator();
 
 function RiwayatTransaksiStack({ userId }) {
   return (
-    <Stack.Navigator>
+    <Stack.Navigator screenOptions={{ headerStyle: { backgroundColor: '#4A4093', }, headerTintColor: 'white', }} >
       <Stack.Screen name="Riwayat Pesan" options={{ headerShown: false }}>
         {(props) => <RiwayatPesan {...props} userId={userId} />}
       </Stack.Screen>
@@ -42,7 +42,7 @@ function RiwayatTransaksiStack({ userId }) {
 
 function StatusPembayaranStack({ userId }) {
   return (
-    <Stack.Navigator>
+    <Stack.Navigator screenOptions={{ headerStyle: { backgroundColor: '#4A4093', }, headerTintColor: 'white', }} >
       <Stack.Screen name="Status Pembayaran" options={{ headerShown: false }}>
         {(props) => <StatusPembayaran {...props} userId={userId} />}
       </Stack.Screen>
@@ -55,11 +55,11 @@ function StatusPembayaranStack({ userId }) {
 
 function RiwayatStack({ userId }) {
   return (
-    <Stack.Navigator>
+    <Stack.Navigator screenOptions={{ headerStyle: { backgroundColor: '#4A4093', }, headerTintColor: 'white', }} >
       <Stack.Screen name="Profil">
         {(props) => <ProfilScreen {...props} userId={userId} />}
       </Stack.Screen>
-      <Stack.Screen name="Riwayat Transaksi">
+      <Stack.Screen color="#4A4093" name="Riwayat Transaksi">
         {(props) => <RiwayatTransaksiStack {...props} userId={userId} />}
       </Stack.Screen>
       <Stack.Screen name="Status Pembayaran">
@@ -71,13 +71,13 @@ function RiwayatStack({ userId }) {
       <Stack.Screen name="Tentang Toko" component={AboutStoreScreen} />
       <Stack.Screen name="Edit Profile" component={EditProfileScreen} />
       <Stack.Screen name="Edit Profil" component={EditProfileScreen} />
-    </Stack.Navigator>
+    </Stack.Navigator >
   );
 }
 
 function MenuStack({ userId }) {
   return (
-    <Stack.Navigator>
+    <Stack.Navigator screenOptions={{ headerStyle: { backgroundColor: '#4A4093', }, headerTintColor: 'white', }} >
       <Stack.Screen name="Menu" options={{ headerShown: false }}>
         {(props) => <Homescreen {...props} userId={userId} />}
       </Stack.Screen>
@@ -100,7 +100,7 @@ function MenuStack({ userId }) {
 
 function KeranjangStack({ userId }) {
   return (
-    <Stack.Navigator>
+    <Stack.Navigator screenOptions={{ headerStyle: { backgroundColor: '#4A4093', }, headerTintColor: 'white', }} >
       <Stack.Screen name="Keranjang">
         {(props) => <KeranjangScreen {...props} userId={userId} />}
       </Stack.Screen>
@@ -135,7 +135,7 @@ function App() {
               }
 
               // You can return any component here as the tab icon
-              return <Ionicons name={iconName} size={size} color="#04B4A2" />;
+              return <Ionicons name={iconName} size={size} color="#4A4093" />;
             },
             tabBarLabel: () => null, // Hide the label
           })}

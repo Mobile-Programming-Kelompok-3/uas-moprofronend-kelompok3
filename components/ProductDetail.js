@@ -65,8 +65,8 @@ const ProductDetail = ({ route, navigation, userId }) => {
   };
 
   return (
-    <ScrollView style={{ flex: 1, backgroundColor: '#F3DDE0' }}>
-      <View>
+    <ScrollView style={{ flex: 1, backgroundColor: '#F3DDE0', }}>
+      <View style={{ marginBottom: 20 }}>
         <View
           style={{
             borderRadius: 16,
@@ -74,33 +74,36 @@ const ProductDetail = ({ route, navigation, userId }) => {
             shadowOffset: { width: 0, height: 4 },
             shadowOpacity: 0.1,
             shadowRadius: 7,
+            marginBottom: 16,
+            marginTop: 16,
             overflow: 'hidden',
           }}
         >
           <Image
             source={{ uri: product?.gambar || item.image }}
             style={{
-              width: '100%',
+              width: '90%',
               height: 200,
               resizeMode: 'cover',
               borderTopLeftRadius: 16,
+              alignSelf: 'center',
               borderTopRightRadius: 16,
             }}
           />
-          <Text style={{ fontSize: 24, fontWeight: 'bold', margin: 16, color: '#4A4093' }}>
+          <Text style={{ fontSize: 24, fontWeight: 'bold', color: '#4A4093', margin: 16, marginBottom: 10, }}>
             {product?.name || item.name}
           </Text>
-          <Text style={{ fontSize: 18, marginBottom: 16, marginLeft: 16, color: '#4A4093' }}>
+          <Text style={{ fontSize: 18, marginBottom: 20, marginLeft: 16, color: '#4A4093' }}>
             {product?.harga ? `Rp. ${product.harga}` : item.price}
           </Text>
 
           <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 20, marginLeft: 16 }}>
             <TouchableOpacity onPress={handleDecrement} style={{ padding: 10, backgroundColor: '#43398F', borderRadius: 5 }}>
-              <Text style={{ fontSize: 18, fontWeight: '800', color: 'black' }}>-</Text>
+              <Text style={{ fontSize: 18, fontWeight: '800', color: '#F3DDE0' }}>-</Text>
             </TouchableOpacity>
             <Text style={{ fontSize: 20, marginHorizontal: 10 }}>{quantity}</Text>
             <TouchableOpacity onPress={handleIncrement} style={{ padding: 10, backgroundColor: '#43398F', borderRadius: 5 }}>
-              <Text style={{ fontSize: 18, fontWeight: '800', color: 'black' }}>+</Text>
+              <Text style={{ fontSize: 18, fontWeight: '800', color: '#F3DDE0' }}>+</Text>
             </TouchableOpacity>
           </View>
 
@@ -110,37 +113,39 @@ const ProductDetail = ({ route, navigation, userId }) => {
           </Text>
         </View>
 
-        <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+        <View style={{ position: 'relative', width: '100%', flexDirection: 'row', justifyContent: 'space-between', }}>
           <TouchableOpacity
             onPress={() => handlekeran(item.id)}
             style={{
               flex: 1,
-              backgroundColor: '#FBFF3D',
+              backgroundColor: '#4A4093',
+              padding: 2,
               paddingVertical: 24,
               borderRadius: 25,
               marginHorizontal: 10,
-              borderColor: '#04B]4A2',
+              borderColor: '#04B4A2',
               borderWidth: 1,
             }}
           >
-            <Text style={{ color: '#4A4093', textAlign: 'center', fontSize: 16, fontWeight: 'bold', }}>Tambah ke Keranjang</Text>
+            <Text style={{ color: '#F3DDE0', textAlign: 'center', fontSize: 16, fontWeight: 'bold', }}>Tambah ke Keranjang</Text>
           </TouchableOpacity>
           <TouchableOpacity
             onPress={() => navigation.navigate("Pilih Pembayaran", { item, quantity })}
             style={{
               flex: 1,
-              backgroundColor: '#FBFF3D',
+              backgroundColor: '#4A4093',
+              padding: 2,
               borderRadius: 25,
               marginHorizontal: 10,
               // borderBlockColor: 'white',
               paddingVertical: 24,
             }}
           >
-            <Text style={{ color: '#4A4093', textAlign: 'center', fontSize: 16, fontWeight: 'bold', }}>Pesan Sekarang</Text>
+            <Text style={{ color: '#F3DDE0', textAlign: 'center', fontSize: 16, fontWeight: 'bold', }}>Pesan Sekarang</Text>
           </TouchableOpacity>
         </View>
       </View>
-    </ScrollView>
+    </ScrollView >
   );
 };
 

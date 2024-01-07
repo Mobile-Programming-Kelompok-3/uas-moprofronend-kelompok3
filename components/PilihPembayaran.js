@@ -73,26 +73,33 @@ const PilihPembayaran = ({ navigation, route, userId }) => {
 
 
   return (
-    <ScrollView style={{ flex: 1, backgroundColor: 'white' }}>
-      <View style={styles.container}>
+    <ScrollView style={{ flex: 1, backgroundColor: '#F3DDE0' }}>
+      <View
+        style={styles.container}
+      >
         <Image
-          source={{ uri: item?.gambar }}
+          source={{ uri: item?.gambar || item.image }}
           style={{
-            width: "100%",
-            height: 300,
-            resizeMode: "cover",
+            width: '90%',
+            height: 200,
+            resizeMode: 'cover',
+            borderTopLeftRadius: 16,
+            alignSelf: 'center',
+            borderTopRightRadius: 16,
           }}
         />
-        <Text style={styles.productName}>{item?.name}</Text>
-        <Text style={styles.productPrice}>Rp. {item.harga}</Text>
-        <Text style={styles.totalOrder}>Total Pesanan: {quantity}</Text>
-        <Text style={styles.totalOrder}>Total Harga: {totalPayment}</Text>
-
-        <Text style={styles.label}>Pembayaran</Text>
-        <Text style={styles.label}>BNI : 13887970</Text>
-        <Text style={styles.label}>Mandiri : 13887970</Text>
-        <Text style={styles.label}>BRI : 13887970</Text>
-        <Text style={styles.label}>Voucher Diskon</Text>
+        <Text style={{ fontSize: 24, fontWeight: 'bold', color: '#4A4093', margin: 16, marginBottom: 10, }}>
+          {item?.name || item.name}
+        </Text>
+        <Text style={{ fontSize: 16, marginBottom: 5, marginLeft: 16, color: '#4A4093' }}>
+          {item?.harga ? `Rp. ${item.harga}` : item.price}
+        </Text>
+        <Text style={styles.totalOrder}>Jumlah Barang: {quantity}</Text>
+        <Text style={{ fontSize: 24, fontWeight: 'bold', color: '#4A4093', margin: 16, marginTop: 20, }}>Metode Pembayaran</Text>
+        <Text style={{ fontSize: 16, marginBottom: 5, marginLeft: 16, color: '#4A4093' }}>BNI : 13887970</Text>
+        <Text style={{ fontSize: 16, marginBottom: 5, marginLeft: 16, color: '#4A4093' }}>Mandiri : 13887970</Text>
+        <Text style={{ fontSize: 16, marginBottom: 5, marginLeft: 16, color: '#4A4093' }}>BRI : 13887970</Text>
+        <Text style={{ fontSize: 24, fontWeight: 'bold', color: '#4A4093', margin: 16, marginTop: 20, }}>Voucher Diskon</Text>
         <View style={styles.inputContainer}>
           <TextInput
             style={styles.input}
@@ -114,6 +121,7 @@ const PilihPembayaran = ({ navigation, route, userId }) => {
 
 const styles = StyleSheet.create({
   container: {
+    backgroundColor: '#F3DDE0',
     padding: 16,
   },
   productName: {
@@ -128,46 +136,60 @@ const styles = StyleSheet.create({
   totalOrder: {
     fontSize: 16,
     marginBottom: 20,
+    marginLeft: 16,
+    color: '#4A4093'
   },
   label: {
     fontSize: 16,
     marginBottom: 5,
   },
   input: {
-    borderWidth: 1,
-    borderColor: "gray",
-    borderRadius: 5,
-    paddingVertical: 10,
-    paddingHorizontal: 16,
-    marginBottom: 20,
-    fontSize: 16,
+    height: 40,
+    flex: 1,
+    borderRadius: 10,
+    backgroundColor: "white",
+    marginTop: 5,
+    padding: 15,
+    fontFamily: "Poppins",
+    color: "gray",
+    marginBottom: 10,
+    transition: "width 0.3s ease-in-out",
   },
-  inputContainer: {
+  emailInputContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-between',
-    marginBottom: 20,
+    padding: 5,
+    backgroundColor: 'white',
+    borderRadius: 5,
+    paddingHorizontal: 10,
+    marginBottom: 10,
   },
   refreshButton: {
     backgroundColor: 'lightblue',
-    padding: 10,
-    borderRadius: 5,
+    flex: 1,
+    padding: 15,
+    borderRadius: 10,
+    marginBottom: 20,
+    fontFamily: "Poppins",
   },
   refreshButtonText: {
     color: 'white',
+    textAlign: 'center',
     fontWeight: 'bold',
   },
   bayarButton: {
-    backgroundColor: "#43398F",
-    paddingVertical: 15,
+    backgroundColor: '#4A4093',
+    flex: 1,
+    padding: 15,
     borderRadius: 10,
-    alignItems: "center",
-    width: "100%",
+    alignSelf: "left",
+    marginBottom: 20,
+    fontFamily: "Poppins",
   },
   bayarButtonText: {
-    color: "white",
-    fontSize: 18,
-    fontWeight: "500",
+    color: 'white',
+    textAlign: 'center',
+    fontWeight: 'bold',
   },
   selectedDateText: {
     fontSize: 16,

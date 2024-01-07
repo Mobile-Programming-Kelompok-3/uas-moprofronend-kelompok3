@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, Image, TextInput, ScrollView, StyleSheet, TouchableOpacity } from 'react-native';
 import DatePicker from 'react-datepicker';
+import DatePickerRef from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import * as ImagePicker from 'expo-image-picker';
 import axios from 'axios';
@@ -96,14 +97,17 @@ const PesanSekarang = ({ navigation, route, userId }) => {
 
 
   return (
-    <ScrollView style={{ flex: 1, backgroundColor: 'white' }}>
+    <ScrollView style={{ flex: 1, backgroundColor: '#F3DDE0' }}>
       <View style={styles.container}>
         <Image
           source={{ uri: item?.gambar }}
           style={{
-            width: "100%",
-            height: 300,
+            width: '90%',
+            height: 200,
             resizeMode: "cover",
+            borderTopLeftRadius: 16,
+            alignSelf: 'center',
+            borderTopRightRadius: 16,
           }}
         />
         <Text style={styles.productName}>{item?.name}</Text>
@@ -136,18 +140,24 @@ const PesanSekarang = ({ navigation, route, userId }) => {
           onChangeText={(text) => setNotes(text)}
         />
 
+        <Text style={styles.label}>Tanggal Pemesanan</Text>
         <DatePicker
           selected={orderDate}
           onChange={handleDateChange}
           placeholderText="Pilih Tanggal Pemesanan"
           dateFormat="yyyy-MM-dd"
           todayButton="Hari Ini"
-          style={styles.input} // Apply the input styles to the DatePicker
           showYearDropdown
           showMonthDropdown
           dropdownMode="select"
+          customInput={
+            <TouchableOpacity style={styles.selectImageButton} onPress={() => DatePickerRef.current.onClick()}>
+              <Text style={{ color: '#4A4093', textAlign: 'center', fontWeight: 600, }}>Pilih Tanggal Pemesanan</Text>
+            </TouchableOpacity>
+          }
+          ref={(el) => (DatePickerRef.current = el)} // Tambahan untuk memastikan ref datePickerRef
+          style={{ padding: 20 }}
         />
-
         {orderDate && (
           <Text style={styles.selectedDateText}>
             Tanggal Pemesanan: {orderDate.toISOString().split("T")[0]}
@@ -163,37 +173,60 @@ const PesanSekarang = ({ navigation, route, userId }) => {
 };
 
 const styles = StyleSheet.create({
+  selectDateButton: {
+    backgroundColor: 'lightblue',
+    padding: 15,
+    borderRadius: 10,
+    fontFamily: "Poppins",
+    alignSelf: 'center',
+    marginTop: 20,
+  },
   container: {
     padding: 16,
   },
   productName: {
     fontSize: 24,
-    fontWeight: "bold",
-    marginVertical: 10,
+    fontWeight: 'bold',
+    color: '#4A4093',
+    margin: 16,
+    marginBottom: 10,
   },
   productPrice: {
-    fontSize: 18,
-    marginBottom: 10,
+    fontSize: 16,
+    marginBottom: 5,
+    marginLeft: 16,
+    color: '#4A4093'
   },
   totalOrder: {
     fontSize: 16,
-    marginBottom: 20,
+    marginBottom: 5,
+    marginLeft: 16,
+    color: '#4A4093'
   },
   label: {
-    fontSize: 16,
-    marginBottom: 5,
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: '#4A4093',
+    margin: 16,
+    marginTop: 20,
   },
   input: {
-    borderWidth: 1,
-    borderColor: "gray",
-    borderRadius: 5,
-    paddingVertical: 10,
-    paddingHorizontal: 16,
-    marginBottom: 20,
-    fontSize: 16,
+    height: 40,
+    width: '90%',
+    alignSelf: 'center',
+    flex: 1,
+    borderRadius: 10,
+    backgroundColor: "white",
+    marginTop: 5,
+    padding: 15,
+    fontFamily: "Poppins",
+    color: "gray",
+    marginBottom: 10,
+    transition: "width 0.3s ease-in-out",
   },
   bayarButton: {
     backgroundColor: "#43398F",
+    marginTop: 20,
     paddingVertical: 15,
     borderRadius: 10,
     alignItems: "center",
@@ -206,8 +239,13 @@ const styles = StyleSheet.create({
   },
   selectedDateText: {
     fontSize: 16,
-    marginTop: 10,
-  }, imageInputContainer: {
+    color: '#4A4093',
+    flex: 1,
+    padding: 15,
+    borderRadius: 10,
+    fontFamily: "Poppins",
+  },
+  imageInputContainer: {
     marginBottom: 20,
     alignItems: 'center',
   },
@@ -220,8 +258,11 @@ const styles = StyleSheet.create({
     borderColor: 'gray',
   },
   selectImageButton: {
-    fontSize: 16,
-    color: 'blue',
+    backgroundColor: 'lightblue',
+    flex: 1,
+    padding: 15,
+    borderRadius: 10,
+    fontFamily: "Poppins",
   },
 });
 

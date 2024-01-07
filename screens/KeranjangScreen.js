@@ -105,30 +105,34 @@ function KeranjangScreen({ navigation, userId }) {
                   </View>
                 </Text>
                 <TouchableOpacity onPress={() => Deletekeran(item.id)} style={styles.buttonexit}>
-                  <Text style={{ fontWeight: '300' }}>x</Text>
+                  <Text style={{ fontWeight: '600', marginLeft: 3, }}>x</Text>
                 </TouchableOpacity>
               </View>
             );
           }}
           showsVerticalScrollIndicator={false}
         />
+        <TouchableOpacity
+          onPress={() => {
+            const totalPrice = calculateTotalPrice();
+            navigation.navigate("Pilih Pembayaran Keranjang", { item: keranjangList, totalPayment: totalPrice })
+          }}
+          style={{
+            flex: 1,
+            backgroundColor: '#4A4093',
+            borderRadius: 25,
+            marginBottom: 10,
+            width: "90%",
+            alignSelf: 'center',
+            padding: 20,
+            // marginHorizontal: 5,
+            // borderBlockColor: 'white',
+            // paddingVertical: ,
+          }}
+        >
+          <Text style={{ color: 'white', textAlign: 'center', fontSize: 14, fontWeight: 'bold', marginBottom: "10%", }}>Pesan Sekarang</Text>
+        </TouchableOpacity>
       </ScrollView>
-      <TouchableOpacity
-        onPress={() => {
-          const totalPrice = calculateTotalPrice();
-          navigation.navigate("Pilih Pembayaran Keranjang", { item: keranjangList, totalPayment: totalPrice })
-        }}
-        style={{
-          flex: 1,
-          backgroundColor: '#FBFF3D',
-          borderRadius: 25,
-          marginHorizontal: 10,
-          // borderBlockColor: 'white',
-          paddingVertical: 24,
-        }}
-      >
-        <Text style={{ color: '#4A4093', textAlign: 'center', fontSize: 16, fontWeight: 'bold', }}>Pesan Sekarang</Text>
-      </TouchableOpacity>
       {/* <TouchableOpacity
         style={styles.pesanButton}
         onPress={() => {
@@ -144,6 +148,16 @@ function KeranjangScreen({ navigation, userId }) {
 
 
 const styles = StyleSheet.create({
+  buttonexit: {
+    borderWidth: 0.5,
+    borderRadius: 15,
+    width: 15,
+    height: 15,
+    alignItems: 'right',
+    justifyContent: 'center',
+    backgroundColor: '#F4F4F4',
+    marginLeft: 110,
+  },
   container: {
     flex: 1,
     justifyContent: 'space-between',

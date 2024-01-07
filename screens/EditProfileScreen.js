@@ -4,6 +4,7 @@ import {
   Text,
   Image,
   TextInput,
+  ScrollView,
   TouchableOpacity,
   StyleSheet,
 } from "react-native";
@@ -87,81 +88,86 @@ function EditProfileScreen({ navigation, route }) {
   };
 
   return (
-    <View style={styles.container}>
-      <View style={styles.editProfileContainer}>
-        <View style={styles.editProfileField}>
-          <Text style={styles.editProfileLabel}>Foto Profil</Text>
-          <TouchableOpacity onPress={selectImage}>
-            {profileImage ? (
-              <Image
-                source={{ uri: profileImage }}
-                style={styles.profileImage}
-              />
-            ) : (
-              <View style={styles.profileImagePlaceholder}>
-                <Icon name="camera" size={30} color="#000" />
-              </View>
-            )}
-          </TouchableOpacity>
+    <ScrollView style={{ flex: 1, backgroundColor: '#F3DDE0' }}>
+      <View style={styles.container}>
+        <View style={styles.editProfileContainer}>
+          <View style={styles.editProfileField}>
+            <Text style={styles.editProfileLabel}>Foto Profil</Text>
+            <TouchableOpacity onPress={selectImage}>
+              {profileImage ? (
+                <Image
+                  source={{ uri: profileImage }}
+                  style={styles.profileImage}
+                />
+              ) : (
+                <View style={styles.profileImagePlaceholder}>
+                  <Icon name="camera" size={30} color="#000" />
+                </View>
+              )}
+            </TouchableOpacity>
+          </View>
+
+          <View style={styles.editProfileField}>
+            <Text style={styles.editProfileLabel}>Nama</Text>
+            <TextInput
+              style={styles.editProfileInput}
+              value={name}
+              placeholder="nama"
+              placeholderTextColor="gray"
+              onChangeText={(text) => setName(text)}
+            />
+          </View>
+          <View style={styles.editProfileField}>
+            <Text style={styles.editProfileLabel}>Email</Text>
+            <TextInput
+              style={styles.editProfileInput}
+              value={email}
+              placeholder="email"
+              placeholderTextColor="gray"
+              onChangeText={(text) => setEmail(text)}
+            />
+          </View>
+          <View style={styles.editProfileField}>
+            <Text style={styles.editProfileLabel}>Nomor Telepon</Text>
+            <TextInput
+              style={styles.editProfileInput}
+              value={phoneNumber}
+              placeholder="nomor"
+              placeholderTextColor="gray"
+              onChangeText={(text) => setPhoneNumber(text)}
+            />
+          </View>
+          <View style={styles.editProfileField}>
+            <Text style={styles.editProfileLabel}>Alamat</Text>
+            <TextInput
+              style={styles.editProfileInput}
+              value={address}
+              placeholder="alamat"
+              placeholderTextColor="gray"
+              onChangeText={(text) => setAddress(text)}
+            />
+          </View>
         </View>
 
-        <View style={styles.editProfileField}>
-          <Text style={styles.editProfileLabel}>Nama</Text>
-          <TextInput
-            style={styles.editProfileInput}
-            value={name}
-            placeholder="nama"
-            placeholderTextColor="gray"
-            onChangeText={(text) => setName(text)}
-          />
-        </View>
-        <View style={styles.editProfileField}>
-          <Text style={styles.editProfileLabel}>Email</Text>
-          <TextInput
-            style={styles.editProfileInput}
-            value={email}
-            placeholder="email"
-            placeholderTextColor="gray"
-            onChangeText={(text) => setEmail(text)}
-          />
-        </View>
-        <View style={styles.editProfileField}>
-          <Text style={styles.editProfileLabel}>Nomor Telepon</Text>
-          <TextInput
-            style={styles.editProfileInput}
-            value={phoneNumber}
-            placeholder="nomor"
-            placeholderTextColor="gray"
-            onChangeText={(text) => setPhoneNumber(text)}
-          />
-        </View>
-        <View style={styles.editProfileField}>
-          <Text style={styles.editProfileLabel}>Alamat</Text>
-          <TextInput
-            style={styles.editProfileInput}
-            value={address}
-            placeholder="alamat"
-            placeholderTextColor="gray"
-            onChangeText={(text) => setAddress(text)}
-          />
-        </View>
+        {/* Save Button */}
+        <TouchableOpacity style={styles.saveButton} onPress={handleSaveChanges}>
+          <Text style={styles.saveButtonText}>Simpan</Text>
+        </TouchableOpacity>
       </View>
-
-      {/* Save Button */}
-      <TouchableOpacity style={styles.saveButton} onPress={handleSaveChanges}>
-        <Text style={styles.saveButtonText}>Simpan</Text>
-      </TouchableOpacity>
-    </View>
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
+  profileImagePlaceholder: {
+    marginTop: 15,
+  },
   container: {
     flex: 1,
     justifyContent: "center",
     alignItems: "start",
     paddingHorizontal: 20,
-    backgroundColor: "#FFFFFF",
+    backgroundColor: "#F3DDE0",
   },
   backButton: {
     paddingHorizontal: 10,
@@ -175,37 +181,46 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   editProfileContainer: {
+    marginTop: 20,
     width: "100%",
     marginBottom: 20,
   },
   editProfileField: {
-    marginBottom: 15,
+    marginBottom: 10,
+    marginTop: 10,
   },
   editProfileLabel: {
     fontFamily: "Poppins",
     fontSize: 18,
-    marginBottom: 5,
+    fontWeight: 'bold',
+    color: '#4A4093',
   },
   editProfileInput: {
-    borderBottomWidth: 1,
-    borderColor: "#CCCCCC",
-    paddingVertical: 10,
-    fontSize: 18,
+    height: 40,
+    width: '100%',
+    alignSelf: 'center',
+    flex: 1,
+    borderRadius: 10,
+    backgroundColor: "white",
+    marginTop: 5,
+    padding: 15,
+    fontFamily: "Poppins",
+    color: "gray",
+    transition: "width 0.3s ease-in-out",
   },
   profileImage: {
     width: 100,
     height: 100,
     borderRadius: 50,
     marginRight: 20,
-  },  
+  },
   saveButton: {
-    backgroundColor: "purple",
+    backgroundColor: "#43398F",
+    marginBottom: 20,
     paddingVertical: 15,
-    paddingHorizontal: 20,
     borderRadius: 10,
     alignItems: "center",
     width: "100%",
-    marginBottom: 20,
   },
   saveButtonText: {
     fontFamily: "Poppins",

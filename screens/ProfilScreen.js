@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, Image, TouchableOpacity, StyleSheet } from "react-native";
+import { View, Text, ScrollView, Image, TouchableOpacity, StyleSheet } from "react-native";
 import HeaderPage from "../components/HeaderPage";
 import DefaultProfileImage from "../assets/ProfilImg.png";
 import axios from "axios";
@@ -7,11 +7,20 @@ import axios from "axios";
 function ProfileScreen({ navigation, userId }) {
   const [userProfile, setUserProfile] = useState(null);
 
-  const handleLogout = () => {
-    // Hapus data pengguna dari penyimpanan lokal/state jika perlu
+  const handleLogout = async () => {
+    try {
+      const response = await axios.post(
+        "http://127.0.0.1:8000/logout",
+        {}, // empty data if required by your backend
+        { withCredentials: true } // set this if you're using cookies for authentication
+      );
 
-    // Navigasi ke halaman login setelah logout berhasil
-    navigation.replace("Login");
+      if (response.status === 200) {
+        navigation.navigate("Login");
+      }
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   console.log(userId);
@@ -38,111 +47,114 @@ function ProfileScreen({ navigation, userId }) {
   }, [navigation]);
 
   return (
-    <View style={styles.container}>
-      <View style={styles.userInfoContainer}>
-        <Image source={
-          userProfile?.user?.gambar
-            ? { uri: userProfile.user.gambar }
-            : DefaultProfileImage
-        } style={styles.profileImage} />
+    <ScrollView style={{ flex: 1, backgroundColor: '#F3DDE0' }}>
+      <View style={styles.container}>
+        <View style={styles.userInfoContainer}>
+          <Image source={
+            userProfile?.user?.gambar
+              ? { uri: userProfile.user.gambar }
+              : DefaultProfileImage
+          } style={styles.profileImage} />
+        </View>
         <View style={styles.userInfo}>
           <Text style={styles.username}>{userProfile ? userProfile.user.name : "Loading..."}</Text>
           <Text style={styles.email}>{userProfile ? userProfile.user.email : "Loading..."}</Text>
         </View>
+
+        {/* Card Button untuk Pindah Halaman */}
+        <TouchableOpacity
+          style={styles.cardButton}
+          onPress={() => navigation.navigate("Edit Profil", { userId: userId })}
+        >
+          <Text style={styles.buttonText}>Edit Profil</Text>
+          <svg
+            style={styles.buttonImage}
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+            class="w-6 h-6"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M4.5 12h15m0 0l-6.75-6.75M19.5 12l-6.75 6.75"
+            />
+          </svg>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.cardButton}
+          onPress={() => navigation.navigate("Status Pembayaran", { userId: userId })}
+        >
+          <Text style={styles.buttonText}>Status Pembayaran</Text>
+          <svg
+            style={styles.buttonImage}
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+            class="w-6 h-6"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M4.5 12h15m0 0l-6.75-6.75M19.5 12l-6.75 6.75"
+            />
+          </svg>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.cardButton}
+          onPress={() => navigation.navigate("Riwayat Transaksi")}
+        >
+          <Text style={styles.buttonText}>Riwayat Transaksi</Text>
+
+          <svg
+            style={styles.buttonImage}
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+            class="w-6 h-6"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M4.5 12h15m0 0l-6.75-6.75M19.5 12l-6.75 6.75"
+            />
+          </svg>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.cardButton}
+          onPress={() => navigation.navigate("Tentang Toko")}
+        >
+          <Text style={styles.buttonText}>Tentang Toko</Text>
+          <svg
+            style={styles.buttonImage}
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+            class="w-6 h-6"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M4.5 12h15m0 0l-6.75-6.75M19.5 12l-6.75 6.75"
+            />
+          </svg>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.logoutButton}
+          onPress={handleLogout}
+        >
+          <Text style={styles.logoutText}>Logout</Text>
+        </TouchableOpacity>
       </View>
-
-      {/* Card Button untuk Pindah Halaman */}
-      <TouchableOpacity
-        style={styles.cardButton}
-        onPress={() => navigation.navigate("Edit Profil", { userId: userId })}
-      >
-        <Text style={styles.buttonText}>Edit Profil</Text>
-        <svg
-          style={styles.buttonImage}
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke-width="1.5"
-          stroke="currentColor"
-          class="w-6 h-6"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            d="M4.5 12h15m0 0l-6.75-6.75M19.5 12l-6.75 6.75"
-          />
-        </svg>
-      </TouchableOpacity>
-      <TouchableOpacity
-        style={styles.cardButton}
-        onPress={() => navigation.navigate("Status Pembayaran", { userId: userId })}
-      >
-        <Text style={styles.buttonText}>Status Pembayaran</Text>
-        <svg
-          style={styles.buttonImage}
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke-width="1.5"
-          stroke="currentColor"
-          class="w-6 h-6"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            d="M4.5 12h15m0 0l-6.75-6.75M19.5 12l-6.75 6.75"
-          />
-        </svg>
-      </TouchableOpacity>
-      <TouchableOpacity
-        style={styles.cardButton}
-        onPress={() => navigation.navigate("Riwayat Transaksi")}
-      >
-        <Text style={styles.buttonText}>Riwayat Transaksi</Text>
-
-        <svg
-          style={styles.buttonImage}
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke-width="1.5"
-          stroke="currentColor"
-          class="w-6 h-6"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            d="M4.5 12h15m0 0l-6.75-6.75M19.5 12l-6.75 6.75"
-          />
-        </svg>
-      </TouchableOpacity>
-      <TouchableOpacity
-        style={styles.cardButton}
-        onPress={() => navigation.navigate("Tentang Toko")}
-      >
-        <Text style={styles.buttonText}>Tentang Toko</Text>
-        <svg
-          style={styles.buttonImage}
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke-width="1.5"
-          stroke="currentColor"
-          class="w-6 h-6"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            d="M4.5 12h15m0 0l-6.75-6.75M19.5 12l-6.75 6.75"
-          />
-        </svg>
-      </TouchableOpacity>
-      <TouchableOpacity
-        style={styles.logoutButton}
-      >
-        <Text style={styles.logoutText}>Logout</Text>
-      </TouchableOpacity>
-    </View>
+    </ScrollView>
   );
 }
 
@@ -152,31 +164,37 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "start",
     paddingHorizontal: 20,
-    backgroundColor: "#F3DDE0S",
+    backgroundColor: "#F3DDE0",
   },
   userInfoContainer: {
     flexDirection: "row",
     alignItems: "center",
+    alignSelf: "center",
+    marginTop: 20,
     marginBottom: 20,
   },
   profileImage: {
+    alignSelf: "center",
     width: 100,
     height: 100,
     borderRadius: 50,
     marginRight: 20,
   },
   userInfo: {
+    alignSelf: "center",
     justifyContent: "center",
+    marginBottom: 20,
   },
   username: {
-    // fontFamily: 'Poppins',
+    fontFamily: 'Poppins',
     fontSize: 24,
     fontWeight: "700",
+    color: "#4A4093",
   },
   email: {
-    // fontFamily: 'Poppins',
+    fontFamily: 'Poppins',
     fontSize: 18,
-    color: "gray",
+    color: "#4A4093",
   },
   cardButton: {
     flexDirection: "row", // Membuat konten sejajar (horizontal)
@@ -204,6 +222,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     elevation: 5, // Untuk bayangan
     shadowColor: "#000",
+    marginBottom: 20,
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
